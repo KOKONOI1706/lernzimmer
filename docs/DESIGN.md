@@ -3,7 +3,7 @@
 > A cozy pixel study room for learning German. You decorate your own room: a whiteboard, stickers,
 > a clock, music, rain on the window. Then you study inside it with flashcards, mini games and focus timers.
 
-Status: **M0 (design + asset pipeline)**. No app code yet. This document is the spec that M1+ build against.
+Status: **M1 (app shell) done.** This document is the spec that later milestones build against.
 
 ---
 
@@ -239,11 +239,11 @@ flowchart LR
 | Build | **Vite + React 19 + TypeScript** | fast, simple static deploy |
 | State | **Zustand** (+ `immer`) | small, stores are easy to persist |
 | Canvas / whiteboard | **react-konva** | layers, hit-testing, transforms. Pixel rendering is easy to control (`imageSmoothingEnabled=false`). *(We don't use tldraw: its production license requires a key/watermark, and a pixel look fights its styling.)* |
-| Window manager | own, small (`react-rnd` for drag/resize) | we need full visual control |
+| Window manager | own (`src/os`): pointer-capture drag/resize snapped to `--px` | full visual control, no dependency |
 | Storage | **Dexie** (IndexedDB) | handles large blobs (stickers, audio), works offline |
 | SRS | **ts-fsrs** | modern FSRS scheduler |
 | Audio | Web Audio API, no library | procedural noise and a mixer need direct control |
-| i18n | **i18next** (vi, en, de) | |
+| i18n | small typed dictionary (`src/i18n`), vi / en / de with fallback to de | enough for UI strings; switch to i18next if plurals/ICU are needed |
 | PWA | `vite-plugin-pwa` | install to desktop, offline |
 | Tests | Vitest + Testing Library, Playwright for e2e | |
 | Hosting | Cloudflare Pages or GitHub Pages | static, free |
@@ -340,7 +340,7 @@ interface GameAPI { sprites: Atlas; sfx(name: string): void; speak(de: string): 
 | Milestone | Scope | Done when |
 |---|---|---|
 | **M0** ✅ | Design doc, repo, sprite/asset pipeline, starter sprite set, procedural backgrounds | this commit |
-| **M1 Shell** | Vite app, themes and tokens, pixel UI kit (Panel/Button/Dialog), window manager, taskbar and start menu, Dexie setup, "Press START" splash | open/close/drag windows; theme switch persists |
+| **M1 Shell** ✅ | Vite app, themes and tokens, pixel UI kit (Panel/Button/Dialog), window manager, taskbar and start menu, Dexie setup, "Press START" splash | open/close/drag windows; theme switch persists |
 | **M2 Board** | Konva board: pen, eraser, shapes, text, notes, stickers (upload/paste), pins, undo/redo, pan/zoom, autosave, background picker | decorate a room, reload, it's still there |
 | **M3 Widgets & sound** | Clock, Pomodoro, music embeds, procedural ambience plus mixer, word of the day, to-do | a full study session without leaving the room |
 | **M4 Learning core** | Decks, card editor, FSRS review, TTS, A1 starter deck (~500 words), note → card, import CSV/Anki | daily review loop works |

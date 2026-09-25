@@ -8,17 +8,20 @@
 YouTube/Spotify, rain and fireplace sounds, Hanoi street noise. Then study inside it with spaced-repetition flashcards,
 der/die/das games, and Brezel the dachshund cheering you on.
 
-> Status: **M0 — design & asset pipeline.** The app itself starts in M1.
+> Status: **M1 — app shell.** Pixel desktop, draggable windows, start menu, 3 themes, vi/en/de UI, backgrounds, local autosave.
 
 - 📐 [System design](docs/DESIGN.md): vision, UI language, features, architecture, data model, roadmap
 - 🎨 [Asset pipeline](docs/ASSETS.md): sprites, palettes, backgrounds, CC0 audio sync
 
-## Quick start (assets)
+## Quick start
 ```bash
-npm run sprites        # build sprites, atlas and backgrounds into public/assets
-npm run assets:dry     # check external asset status
+npm install
+npm run dev            # http://localhost:5317
+npm test               # unit tests
+npm run build          # typecheck + production build
+npm run sprites        # rebuild sprites, atlas and backgrounds into public/assets
 ```
 Open `public/assets/sprites/preview.html` to browse the sprite set.
 
 ## Planned stack
-Vite · React · TypeScript · Zustand · react-konva · Dexie (IndexedDB) · ts-fsrs · Web Audio · i18next (vi/en/de) · PWA
+Vite · React · TypeScript · Zustand · react-konva · Dexie (IndexedDB) · ts-fsrs · Web Audio · PWA

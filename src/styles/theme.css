@@ -1,0 +1,76 @@
+/* Design tokens per theme (see docs/DESIGN.md §2). `--px` = CSS px per art pixel, set from settings. */
+
+:root {
+  --px: 3px;
+  --font-head: 'Press Start 2P', monospace;
+  --font-body: 'VT323', monospace;
+  --font-label: 'Silkscreen', monospace;
+
+  /* gender colours: identical in every theme on purpose */
+  --der: #1f4fd1;
+  --die: #e0344a;
+  --das: #3fbf6a;
+  --plural: #ffd23f;
+
+  --taskbar-h: calc(var(--px) * 14);
+
+  /* Fonts for *translated* headings/labels. Press Start 2P and Silkscreen have no Vietnamese
+     glyphs, so vi swaps to VT323 at a larger size instead of mixing fonts mid-word. */
+  --font-head-t: var(--font-head);
+  --font-label-t: var(--font-label);
+  --t-scale: 1;
+}
+
+:root:lang(vi) {
+  --font-head-t: var(--font-body);
+  --font-label-t: var(--font-body);
+  --t-scale: 1.6;
+}
+
+:root[data-theme='aconite'] {
+  --label: #5b5a78;
+  --desk: #2a3a8c;
+  --ink: #0d0b1e;
+  --surface: #f4efe6;
+  --surface-2: #fffaf0;
+  --hilite: #ffffff;
+  --muted: #8b8aa3;
+  --chrome: #1f4fd1;
+  --chrome-ink: #f4efe6;
+  --accent: #3fd0ff;
+  --win-border: var(--ink);
+  --glow: none;
+  --scrim: rgba(13, 11, 30, 0.35);
+}
+
+:root[data-theme='aquarium'] {
+  --label: #8fbfff;
+  --desk: #0a1a4a;
+  --ink: #e6f7ff;
+  --surface: #0c2260;
+  --surface-2: #0f2a6b;
+  --hilite: #3fd0ff;
+  --muted: #5b7bbd;
+  --chrome: #1f4fd1;
+  --chrome-ink: #e6f7ff;
+  --accent: #ffd23f;
+  --win-border: #3fd0ff;
+  --glow: 0 0 calc(var(--px) * 4) rgba(63, 208, 255, 0.55);
+  --scrim: rgba(5, 12, 40, 0.5);
+}
+
+:root[data-theme='violet'] {
+  --label: #a78bfa;
+  --desk: #0d0b1e;
+  --ink: #f4efe6;
+  --surface: #0d0b1e;
+  --surface-2: #141028;
+  --hilite: #8b5cf6;
+  --muted: #4c2a9e;
+  --chrome: #4c2a9e;
+  --chrome-ink: #f4efe6;
+  --accent: #ff9ecb;
+  --win-border: #8b5cf6;
+  --glow: 0 0 calc(var(--px) * 3) rgba(139, 92, 246, 0.5);
+  --scrim: rgba(0, 0, 0, 0.55);
+}
