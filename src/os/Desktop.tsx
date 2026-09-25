@@ -7,6 +7,9 @@ import { useSettings } from '../state/settings';
 import { useBackgroundUrl } from '../state/useBackgroundUrl';
 import { Sprite } from '../ui/Sprite';
 import { useT } from '../i18n';
+import { Board } from '../board/Board';
+import { Toolbar } from '../board/Toolbar';
+import { useBoard } from '../board/store';
 
 export function Desktop({ sessionStart, onEnd }: { sessionStart: number; onEnd: () => void }) {
   const t = useT();
@@ -16,13 +19,17 @@ export function Desktop({ sessionStart, onEnd }: { sessionStart: number; onEnd: 
   const bgUrl = useBackgroundUrl(background);
   const [selected, setSelected] = useState<string>();
   const focused = focusedId(windows);
+  const toolbar = useBoard((s) => s.toolbar);
+  const empty = useBoard((s) => s.items.length === 0);
 
   return (
     <div className="desktop">
       {bgUrl && <img className="desktop__bg" src={bgUrl} alt="" />}
       <div className="desktop__dim" style={{ opacity: dim }} />
 
-      <main className="desktop__area" onPointerDown={(e) => e.target === e.currentTarget && setSelected(undefined)}>
+      <main className="desktop__area" onPointerDown={(e) => !(e.target as HTMLElement).closest('.icon') && setSelected(undefined)}>
+        <Board />
+        {toolbar && empty && <div className="board-empty">{t('board.empty')}</div>}
         <div className="icons" role="listbox" aria-label="Desktop">
           {APPS.filter((a) => a.desktop).map((a) => (
             <button key={a.id} className="icon" role="option" aria-selected={selected === a.id}
@@ -37,13 +44,14 @@ export function Desktop({ sessionStart, onEnd }: { sessionStart: number; onEnd: 
 
         {windows.map((w) => {
           const app = appById(w.appId);
-          if (!app) return null;
+          if (!app?.render) return null;
           return (
             <Window key={w.id} win={w} title={t(app.title)} icon={app.icon} focused={focused === w.id}>
               {app.render({ winId: w.id })}
             </Window>
           );
         })}
+        {toolbar && <Toolbar />}
       </main>
 
       <Taskbar sessionStart={sessionStart} onEnd={onEnd} />

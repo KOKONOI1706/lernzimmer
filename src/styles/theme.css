@@ -11,6 +11,10 @@
   --die: #e0344a;
   --das: #3fbf6a;
   --plural: #ffd23f;
+  /* readable gender text on light surfaces; dark themes override below */
+  --der-ink: #1f4fd1;
+  --die-ink: #c42238;
+  --das-ink: #1f8a45;
 
   --taskbar-h: calc(var(--px) * 14);
 
@@ -44,6 +48,7 @@
 }
 
 :root[data-theme='aquarium'] {
+  --der-ink: #7fa8ff; --die-ink: #ff7b8c; --das-ink: #6fe39a;
   --label: #8fbfff;
   --desk: #0a1a4a;
   --ink: #e6f7ff;
@@ -60,6 +65,7 @@
 }
 
 :root[data-theme='violet'] {
+  --der-ink: #7fa8ff; --die-ink: #ff7b8c; --das-ink: #6fe39a;
   --label: #a78bfa;
   --desk: #0d0b1e;
   --ink: #f4efe6;

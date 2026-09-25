@@ -8,7 +8,7 @@
 YouTube/Spotify, rain and fireplace sounds, Hanoi street noise. Then study inside it with spaced-repetition flashcards,
 der/die/das games, and Brezel the dachshund cheering you on.
 
-> Status: **M1 — app shell.** Pixel desktop, draggable windows, start menu, 3 themes, vi/en/de UI, backgrounds, local autosave.
+> Status: **M3 — widgets & sound.** A pixel whiteboard room (M2) with a study toolkit: German-speaking clock + time quiz, Pomodoro timer, music player (YouTube/Spotify/SoundCloud/MP3), rain/fire/wind mixer, word of the day and a to-do list. vi/en/de UI, 3 themes, everything saved locally.
 
 - 📐 [System design](docs/DESIGN.md): vision, UI language, features, architecture, data model, roadmap
 - 🎨 [Asset pipeline](docs/ASSETS.md): sprites, palettes, backgrounds, CC0 audio sync
