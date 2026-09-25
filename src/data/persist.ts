@@ -4,6 +4,22 @@ import { DEFAULT_SETTINGS, pickSettings, useSettings, type SettingsState } from 
 import { useWindows, type WinState } from '../os/windows';
 import { useBoard, type BoardState } from '../board/store';
 import type { BoardItem } from '../board/types';
+import { useMixer } from '../audio/mixer';
+import { pickTimer, useTimer, type TimerState } from '../focus/timer';
+import { useRadio } from '../media/radio';
+import { useTodos, type Todo } from '../state/todos';
+
+/** Small stores saved as one kv row each. `pick` = what to save, `load` = how to restore. */
+const SIMPLE_STORES = [
+  { key: 'mixer', store: useMixer, pick: () => ({ volumes: useMixer.getState().volumes, master: useMixer.getState().master }),
+    load: (v: unknown) => useMixer.getState().hydrate(v as { volumes: Record<string, number>; master: number }) },
+  { key: 'timer', store: useTimer, pick: () => pickTimer(useTimer.getState()),
+    load: (v: unknown) => useTimer.getState().hydrate(v as Partial<TimerState>) },
+  { key: 'radio', store: useRadio, pick: () => ({ tracks: useRadio.getState().tracks, current: useRadio.getState().current }),
+    load: (v: unknown) => useRadio.getState().hydrate(v as { tracks: [] }) },
+  { key: 'todos', store: useTodos, pick: () => useTodos.getState().todos,
+    load: (v: unknown) => Array.isArray(v) && useTodos.getState().hydrate(v as Todo[]) },
+] as const;
 
 /** Single room until multi-room lands. */
 export const ROOM = 'main';
@@ -19,10 +35,12 @@ let savedItems: BoardItem[] | undefined;
 /** Load saved state into the stores. Missing/broken data falls back to defaults. */
 export async function hydrate() {
   try {
-    const [s, w, b, items] = await Promise.all([
+    const [s, w, b, items, ...simple] = await Promise.all([
       db.kv.get(KEYS.settings), db.kv.get(KEYS.windows), db.kv.get(KEYS.board),
       db.items.where('roomId').equals(ROOM).toArray(),
+      ...SIMPLE_STORES.map((x) => db.kv.get(x.key)),
     ]);
+    SIMPLE_STORES.forEach((x, i) => simple[i]?.value !== undefined && x.load(simple[i]!.value));
     if (s?.value) useSettings.getState().set({ ...DEFAULT_SETTINGS, ...(s.value as Partial<SettingsState>) });
     // windows of apps that no longer open a window (e.g. the old board placeholder) are dropped
     if (Array.isArray(w?.value)) useWindows.getState().hydrate((w.value as WinState[]).filter((win) => win.appId !== 'board'));
@@ -42,6 +60,7 @@ async function collectGarbageBlobs() {
   const bg = useSettings.getState().background;
   if (bg.kind === 'blob') used.add(bg.ref);
   for (const it of useBoard.getState().items) if (it.kind === 'sticker' && it.blobId) used.add(it.blobId);
+  for (const t of useRadio.getState().tracks) if (t.src.kind === 'file') used.add(t.src.blobId);
   const unused = (await db.blobs.toCollection().primaryKeys()).filter((id) => !used.has(id));
   if (unused.length) await db.blobs.bulkDelete(unused);
 }
@@ -54,6 +73,7 @@ export async function saveNow() {
     { key: KEYS.settings, value: pickSettings(useSettings.getState()), updatedAt: now },
     { key: KEYS.windows, value: useWindows.getState().windows, updatedAt: now },
     { key: KEYS.board, value: pickBoardPrefs(board), updatedAt: now },
+    ...SIMPLE_STORES.map((x) => ({ key: x.key, value: x.pick(), updatedAt: now })),
   ]);
   // Items only when they changed (the store replaces the array on every edit)
   if (board.items !== savedItems) {
@@ -79,6 +99,7 @@ export function startAutosave() {
   const unsubs = [
     useSettings.subscribe(schedule),
     useWindows.subscribe(schedule),
+    ...SIMPLE_STORES.map((x) => (x.store.subscribe as (fn: () => void) => () => void)(schedule)),
     // ignore selection/tool churn; save on content, camera and pref changes
     useBoard.subscribe((s, prev) => {
       if (s.items !== prev.items || s.camera !== prev.camera || s.toolbar !== prev.toolbar || s.color !== prev.color

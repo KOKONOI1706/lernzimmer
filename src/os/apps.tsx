@@ -6,6 +6,12 @@ import { WelcomeApp } from '../apps/WelcomeApp';
 import { SettingsApp } from '../apps/SettingsApp';
 import { ComingSoon } from '../apps/ComingSoon';
 import { useBoard } from '../board/store';
+import { ClockApp } from '../apps/ClockApp';
+import { FocusApp } from '../apps/FocusApp';
+import { RadioApp } from '../apps/RadioApp';
+import { AmbienceApp } from '../apps/AmbienceApp';
+import { WordApp } from '../apps/WordApp';
+import { TodoApp } from '../apps/TodoApp';
 
 export interface AppDef {
   id: string;
@@ -31,9 +37,12 @@ export const APPS: AppDef[] = [
   } },
   { id: 'cards', title: 'app.cards', icon: 'book', size: { w: 520, h: 420 }, singleton: true, desktop: true, render: soon('book', 'M4') },
   { id: 'arcade', title: 'app.arcade', icon: 'coin', size: { w: 560, h: 440 }, singleton: true, desktop: true, render: soon('coin', 'M5') },
-  { id: 'radio', title: 'app.radio', icon: 'music_note', size: { w: 420, h: 320 }, singleton: true, desktop: true, render: soon('music_note', 'M3') },
-  { id: 'ambience', title: 'app.ambience', icon: 'fire', size: { w: 420, h: 340 }, singleton: true, desktop: true, render: soon('fire', 'M3') },
-  { id: 'clock', title: 'app.clock', icon: 'clock', size: { w: 360, h: 300 }, singleton: true, desktop: true, render: soon('clock', 'M3') },
+  { id: 'radio', title: 'app.radio', icon: 'music_note', size: { w: 520, h: 560 }, singleton: true, desktop: true, render: () => <RadioApp /> },
+  { id: 'ambience', title: 'app.ambience', icon: 'fire', size: { w: 480, h: 600 }, singleton: true, desktop: true, render: () => <AmbienceApp /> },
+  { id: 'focus', title: 'app.focus', icon: 'tomato', size: { w: 400, h: 470 }, singleton: true, desktop: true, render: () => <FocusApp /> },
+  { id: 'clock', title: 'app.clock', icon: 'clock', size: { w: 460, h: 560 }, singleton: true, desktop: true, render: () => <ClockApp /> },
+  { id: 'word', title: 'app.word', icon: 'flag_de', size: { w: 440, h: 460 }, singleton: true, desktop: true, render: () => <WordApp /> },
+  { id: 'todo', title: 'app.todo', icon: 'checklist', size: { w: 400, h: 440 }, singleton: true, desktop: true, render: () => <TodoApp /> },
   { id: 'settings', title: 'app.settings', icon: 'cursor', size: { w: 520, h: 520 }, singleton: true, desktop: true, render: () => <SettingsApp /> },
   { id: 'welcome', title: 'app.welcome', icon: 'heart', size: { w: 560, h: 470 }, singleton: true, render: ({ winId }) => <WelcomeApp winId={winId} /> },
 ];

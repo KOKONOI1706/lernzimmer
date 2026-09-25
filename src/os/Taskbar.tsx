@@ -1,10 +1,13 @@
 import { useEffect, useState } from 'react';
 import { focusedId, useWindows } from './windows';
-import { appById } from './apps';
+import { appById, openApp } from './apps';
 import { StartMenu } from './StartMenu';
 import { saveNow } from '../data/persist';
 import { Sprite } from '../ui/Sprite';
 import { useT } from '../i18n';
+import { useToast } from '../ui/toast';
+import { mmss, phaseLength, timeLeft, useTimer } from '../focus/timer';
+import { activeLayers, startAudio, useMixer } from '../audio/mixer';
 
 export const formatDuration = (ms: number) => {
   const s = Math.floor(ms / 1000);
@@ -22,14 +25,17 @@ export function Taskbar({ sessionStart, onEnd }: { sessionStart: number; onEnd: 
   const windows = useWindows((s) => s.windows);
   const taskbarClick = useWindows((s) => s.taskbarClick);
   const [menu, setMenu] = useState(false);
-  const [toast, setToast] = useState(false);
+  const toast = useToast((s) => s.text);
   const now = useNow();
   const focused = focusedId(windows);
+  const timer = useTimer();
+  const timerActive = timer.running || timer.remaining !== phaseLength(timer);
+  const sounds = useMixer((s) => activeLayers(s).length);
+  const muted = useMixer((s) => s.muted);
 
   const save = async () => {
     await saveNow();
-    setToast(true);
-    setTimeout(() => setToast(false), 1600);
+    useToast.getState().show(t('start.saved'), 1600);
   };
 
   return (
@@ -50,8 +56,19 @@ export function Taskbar({ sessionStart, onEnd }: { sessionStart: number; onEnd: 
             );
           })}
         </div>
-        {toast && <span className="taskbar__toast" role="status">{t('start.saved')}</span>}
+        {toast && <span className="taskbar__toast" role="status">{toast}</span>}
         <div className="taskbar__tray">
+          {sounds > 0 && (
+            <button className="taskbar__chip" title={t('amb.mute')} aria-pressed={muted}
+              onClick={() => { void startAudio(); useMixer.getState().toggleMute(); }}>
+              <Sprite name="speaker" px={2} />{muted ? '✕' : sounds}
+            </button>
+          )}
+          {timerActive && (
+            <button className={`taskbar__chip ${timer.phase === 'break' ? 'is-break' : ''}`} title={t('app.focus')} onClick={() => openApp('focus')}>
+              <Sprite name="tomato" px={2} />{mmss(timeLeft(timer, now))}{timer.running ? '' : ' ❚❚'}
+            </button>
+          )}
           <span title={t('task.session')} style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
             <Sprite name="clock" px={2} animate={false} />{formatDuration(now - sessionStart)}
           </span>
