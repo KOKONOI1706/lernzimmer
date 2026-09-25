@@ -1,0 +1,12 @@
+{
+  "name": "pd17",
+  "description": "Lernzimmer master palette. Keys match sprite map characters.",
+  "colors": {
+    "k": "#0d0b1e", "w": "#f4efe6", "g": "#8b8aa3", "d": "#3b3857",
+    "b": "#1f4fd1", "c": "#3fd0ff", "n": "#0a1a4a", "p": "#8b5cf6",
+    "v": "#4c2a9e", "r": "#e0344a", "o": "#ff8a2a", "y": "#ffd23f",
+    "e": "#3fbf6a", "f": "#1f6b3a", "t": "#8a5a2b", "s": "#d9a066",
+    "m": "#ff9ecb"
+  },
+  "gender": { "der": "b", "die": "r", "das": "e", "plural": "y" }
+}

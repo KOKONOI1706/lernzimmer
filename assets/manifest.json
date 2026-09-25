@@ -1,0 +1,32 @@
+{
+  "$comment": "External assets. `npm run assets:sync` downloads everything that has a resolvable source and records sha256 + license in manifest.lock.json. Freesound entries start with id=null: run `npm run assets:search -- \"<query>\"` to find CC0 candidates, then paste the chosen id here.",
+  "version": 1,
+  "fonts": [
+    { "id": "press-start-2p", "npm": "@fontsource/press-start-2p", "license": "OFL-1.1", "use": "headings" },
+    { "id": "vt323", "npm": "@fontsource/vt323", "license": "OFL-1.1", "use": "body (has Vietnamese subset)" },
+    { "id": "silkscreen", "npm": "@fontsource/silkscreen", "license": "OFL-1.1", "use": "tiny caps labels" },
+    { "id": "pixelify-sans", "npm": "@fontsource/pixelify-sans", "license": "OFL-1.1", "use": "fallback" }
+  ],
+  "audio": [
+    { "id": "forest-birds", "group": "nature", "freesound": null, "query": "forest birds ambience loop", "dest": "public/assets/audio/forest-birds.mp3" },
+    { "id": "thunderstorm", "group": "nature", "freesound": null, "query": "thunderstorm rain distant thunder", "dest": "public/assets/audio/thunderstorm.mp3" },
+    { "id": "cafe", "group": "city", "freesound": null, "query": "cafe ambience chatter cups", "dest": "public/assets/audio/cafe.mp3" },
+    { "id": "ice-train", "group": "germany", "freesound": null, "query": "train interior ambience germany", "dest": "public/assets/audio/ice-train.mp3" },
+    { "id": "berlin-ubahn", "group": "germany", "freesound": null, "query": "berlin u-bahn", "dest": "public/assets/audio/berlin-ubahn.mp3", "learning": "station announcements = listening practice" },
+    { "id": "weihnachtsmarkt", "group": "germany", "freesound": null, "query": "christmas market germany", "dest": "public/assets/audio/weihnachtsmarkt.mp3" },
+    { "id": "biergarten", "group": "germany", "freesound": null, "query": "beer garden germany crowd", "dest": "public/assets/audio/biergarten.mp3" },
+    { "id": "hanoi-street", "group": "vietnam", "freesound": null, "query": "hanoi street motorbikes", "dest": "public/assets/audio/hanoi-street.mp3" },
+    { "id": "saigon-night-market", "group": "vietnam", "freesound": null, "query": "vietnam market", "dest": "public/assets/audio/saigon-night-market.mp3" },
+    { "id": "rain-tin-roof", "group": "vietnam", "freesound": null, "query": "rain on tin roof", "dest": "public/assets/audio/rain-tin-roof.mp3", "label": { "vi": "Mưa mái tôn" } },
+    { "id": "cicadas", "group": "vietnam", "freesound": null, "query": "cicadas summer", "dest": "public/assets/audio/cicadas.mp3", "label": { "vi": "Ve sầu mùa hè" } },
+    { "id": "vn-sidewalk-cafe", "group": "vietnam", "freesound": null, "query": "vietnam cafe street", "dest": "public/assets/audio/vn-sidewalk-cafe.mp3", "label": { "vi": "Cà phê vỉa hè" } }
+  ],
+  "procedural": [
+    "white-noise", "pink-noise", "brown-noise", "rain", "wind", "fire", "ocean", "clock-tick", "typewriter"
+  ],
+  "packs": [
+    { "id": "kenney-1bit", "manual": true, "page": "https://kenney.nl/assets/1-bit-pack", "license": "CC0-1.0", "dest": "assets/vendor/kenney-1bit/", "use": "extra sticker icons (verify page before download)" },
+    { "id": "kenney-pixel-ui", "manual": true, "page": "https://kenney.nl/assets/pixel-ui-pack", "license": "CC0-1.0", "dest": "assets/vendor/kenney-pixel-ui/", "use": "reference for UI states (verify page before download)" }
+  ],
+  "allowedLicenses": ["CC0-1.0", "Creative Commons 0", "http://creativecommons.org/publicdomain/zero/1.0/", "https://creativecommons.org/publicdomain/zero/1.0/"]
+}

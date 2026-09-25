@@ -1,0 +1,529 @@
+{
+  "meta": {
+    "image": "atlas.png",
+    "size": {
+      "w": 128,
+      "h": 128
+    },
+    "palette": "pd17",
+    "generator": "scripts/build-sprites.mjs"
+  },
+  "frames": {
+    "heart": {
+      "x": 1,
+      "y": 1,
+      "w": 16,
+      "h": 16
+    },
+    "clock": {
+      "x": 18,
+      "y": 1,
+      "w": 16,
+      "h": 16
+    },
+    "pin": {
+      "x": 35,
+      "y": 1,
+      "w": 16,
+      "h": 16
+    },
+    "music_note": {
+      "x": 52,
+      "y": 1,
+      "w": 16,
+      "h": 16
+    },
+    "speaker": {
+      "x": 69,
+      "y": 1,
+      "w": 16,
+      "h": 16
+    },
+    "mug_0": {
+      "x": 86,
+      "y": 1,
+      "w": 16,
+      "h": 16
+    },
+    "mug_1": {
+      "x": 103,
+      "y": 1,
+      "w": 16,
+      "h": 16
+    },
+    "book": {
+      "x": 1,
+      "y": 18,
+      "w": 16,
+      "h": 16
+    },
+    "pencil": {
+      "x": 18,
+      "y": 18,
+      "w": 16,
+      "h": 16
+    },
+    "sticky_note": {
+      "x": 35,
+      "y": 18,
+      "w": 16,
+      "h": 16
+    },
+    "cursor": {
+      "x": 52,
+      "y": 35,
+      "w": 12,
+      "h": 16
+    },
+    "sparkle_0": {
+      "x": 78,
+      "y": 52,
+      "w": 9,
+      "h": 9
+    },
+    "sparkle_1": {
+      "x": 88,
+      "y": 52,
+      "w": 9,
+      "h": 9
+    },
+    "coin": {
+      "x": 86,
+      "y": 35,
+      "w": 12,
+      "h": 12
+    },
+    "fire_0": {
+      "x": 52,
+      "y": 18,
+      "w": 16,
+      "h": 16
+    },
+    "fire_1": {
+      "x": 69,
+      "y": 18,
+      "w": 16,
+      "h": 16
+    },
+    "tree": {
+      "x": 86,
+      "y": 18,
+      "w": 16,
+      "h": 16
+    },
+    "raindrop": {
+      "x": 103,
+      "y": 18,
+      "w": 16,
+      "h": 16
+    },
+    "pretzel": {
+      "x": 1,
+      "y": 35,
+      "w": 16,
+      "h": 16
+    },
+    "dachshund_0": {
+      "x": 18,
+      "y": 35,
+      "w": 16,
+      "h": 16
+    },
+    "dachshund_1": {
+      "x": 35,
+      "y": 35,
+      "w": 16,
+      "h": 16
+    },
+    "flag_de": {
+      "x": 27,
+      "y": 52,
+      "w": 16,
+      "h": 11
+    },
+    "flag_vn": {
+      "x": 44,
+      "y": 52,
+      "w": 16,
+      "h": 11
+    },
+    "non_la": {
+      "x": 61,
+      "y": 52,
+      "w": 16,
+      "h": 10
+    },
+    "xe_may": {
+      "x": 65,
+      "y": 35,
+      "w": 20,
+      "h": 12
+    },
+    "btn_close": {
+      "x": 98,
+      "y": 52,
+      "w": 9,
+      "h": 9
+    },
+    "btn_min": {
+      "x": 108,
+      "y": 52,
+      "w": 9,
+      "h": 9
+    },
+    "btn_max": {
+      "x": 118,
+      "y": 52,
+      "w": 9,
+      "h": 9
+    },
+    "play": {
+      "x": 1,
+      "y": 65,
+      "w": 9,
+      "h": 9
+    },
+    "pause": {
+      "x": 11,
+      "y": 65,
+      "w": 9,
+      "h": 9
+    },
+    "panel_aconite": {
+      "x": 99,
+      "y": 35,
+      "w": 12,
+      "h": 12
+    },
+    "panel_violet": {
+      "x": 112,
+      "y": 35,
+      "w": 12,
+      "h": 12
+    },
+    "panel_dialog": {
+      "x": 1,
+      "y": 52,
+      "w": 12,
+      "h": 12
+    },
+    "panel_aqua": {
+      "x": 14,
+      "y": 52,
+      "w": 12,
+      "h": 12
+    }
+  },
+  "sprites": {
+    "heart": {
+      "frames": [
+        "heart"
+      ],
+      "tags": [
+        "ui",
+        "love"
+      ],
+      "fps": 0
+    },
+    "clock": {
+      "frames": [
+        "clock"
+      ],
+      "tags": [
+        "widget",
+        "time"
+      ],
+      "fps": 0
+    },
+    "pin": {
+      "frames": [
+        "pin"
+      ],
+      "tags": [
+        "board",
+        "pin"
+      ],
+      "fps": 0
+    },
+    "music_note": {
+      "frames": [
+        "music_note"
+      ],
+      "tags": [
+        "widget",
+        "music"
+      ],
+      "fps": 0
+    },
+    "speaker": {
+      "frames": [
+        "speaker"
+      ],
+      "tags": [
+        "ui",
+        "sound"
+      ],
+      "fps": 0
+    },
+    "mug": {
+      "frames": [
+        "mug_0",
+        "mug_1"
+      ],
+      "tags": [
+        "sticker",
+        "cozy"
+      ],
+      "fps": 4
+    },
+    "book": {
+      "frames": [
+        "book"
+      ],
+      "tags": [
+        "sticker",
+        "learn"
+      ],
+      "fps": 0
+    },
+    "pencil": {
+      "frames": [
+        "pencil"
+      ],
+      "tags": [
+        "board",
+        "tool"
+      ],
+      "fps": 0
+    },
+    "sticky_note": {
+      "frames": [
+        "sticky_note"
+      ],
+      "tags": [
+        "board",
+        "note"
+      ],
+      "fps": 0
+    },
+    "cursor": {
+      "frames": [
+        "cursor"
+      ],
+      "tags": [
+        "ui"
+      ],
+      "fps": 0
+    },
+    "sparkle": {
+      "frames": [
+        "sparkle_0",
+        "sparkle_1"
+      ],
+      "tags": [
+        "fx"
+      ],
+      "fps": 6
+    },
+    "coin": {
+      "frames": [
+        "coin"
+      ],
+      "tags": [
+        "gamify",
+        "xp"
+      ],
+      "fps": 0
+    },
+    "fire": {
+      "frames": [
+        "fire_0",
+        "fire_1"
+      ],
+      "tags": [
+        "ambience",
+        "streak"
+      ],
+      "fps": 8
+    },
+    "tree": {
+      "frames": [
+        "tree"
+      ],
+      "tags": [
+        "ambience",
+        "forest"
+      ],
+      "fps": 0
+    },
+    "raindrop": {
+      "frames": [
+        "raindrop"
+      ],
+      "tags": [
+        "ambience",
+        "rain"
+      ],
+      "fps": 0
+    },
+    "pretzel": {
+      "frames": [
+        "pretzel"
+      ],
+      "tags": [
+        "sticker",
+        "germany",
+        "food"
+      ],
+      "fps": 0
+    },
+    "dachshund": {
+      "frames": [
+        "dachshund_0",
+        "dachshund_1"
+      ],
+      "tags": [
+        "pet",
+        "germany"
+      ],
+      "fps": 4
+    },
+    "flag_de": {
+      "frames": [
+        "flag_de"
+      ],
+      "tags": [
+        "sticker",
+        "germany",
+        "flag"
+      ],
+      "fps": 0
+    },
+    "flag_vn": {
+      "frames": [
+        "flag_vn"
+      ],
+      "tags": [
+        "sticker",
+        "vietnam",
+        "flag"
+      ],
+      "fps": 0
+    },
+    "non_la": {
+      "frames": [
+        "non_la"
+      ],
+      "tags": [
+        "sticker",
+        "vietnam"
+      ],
+      "fps": 0
+    },
+    "xe_may": {
+      "frames": [
+        "xe_may"
+      ],
+      "tags": [
+        "sticker",
+        "vietnam",
+        "ambience"
+      ],
+      "fps": 0
+    },
+    "btn_close": {
+      "frames": [
+        "btn_close"
+      ],
+      "tags": [
+        "ui",
+        "window"
+      ],
+      "fps": 0
+    },
+    "btn_min": {
+      "frames": [
+        "btn_min"
+      ],
+      "tags": [
+        "ui",
+        "window"
+      ],
+      "fps": 0
+    },
+    "btn_max": {
+      "frames": [
+        "btn_max"
+      ],
+      "tags": [
+        "ui",
+        "window"
+      ],
+      "fps": 0
+    },
+    "play": {
+      "frames": [
+        "play"
+      ],
+      "tags": [
+        "ui",
+        "media"
+      ],
+      "fps": 0
+    },
+    "pause": {
+      "frames": [
+        "pause"
+      ],
+      "tags": [
+        "ui",
+        "media"
+      ],
+      "fps": 0
+    },
+    "panel_aconite": {
+      "frames": [
+        "panel_aconite"
+      ],
+      "tags": [
+        "ui",
+        "panel"
+      ],
+      "fps": 0,
+      "slice": 4
+    },
+    "panel_violet": {
+      "frames": [
+        "panel_violet"
+      ],
+      "tags": [
+        "ui",
+        "panel"
+      ],
+      "fps": 0,
+      "slice": 4
+    },
+    "panel_dialog": {
+      "frames": [
+        "panel_dialog"
+      ],
+      "tags": [
+        "ui",
+        "panel"
+      ],
+      "fps": 0,
+      "slice": 4
+    },
+    "panel_aqua": {
+      "frames": [
+        "panel_aqua"
+      ],
+      "tags": [
+        "ui",
+        "panel"
+      ],
+      "fps": 0,
+      "slice": 4
+    }
+  }
+}

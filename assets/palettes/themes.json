@@ -1,0 +1,5 @@
+{
+  "aconite":  { "bg": "#f4efe6", "surface": "#fffaf0", "ink": "#0d0b1e", "chrome": "#1f4fd1", "accent": "#3fd0ff", "muted": "#8b8aa3", "panel": "panel_aconite" },
+  "aquarium": { "bg": "#0a1a4a", "surface": "#0f2a6b", "ink": "#e6f7ff", "chrome": "#3fd0ff", "accent": "#ffd23f", "muted": "#5b7bbd", "panel": "panel_aqua", "glow": "0 0 8px #3fd0ff" },
+  "violet":   { "bg": "#0d0b1e", "surface": "#141028", "ink": "#f4efe6", "chrome": "#8b5cf6", "accent": "#ff9ecb", "muted": "#4c2a9e", "panel": "panel_violet", "dialog": "panel_dialog" }
+}

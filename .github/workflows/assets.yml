@@ -1,0 +1,14 @@
+name: assets
+on:
+  push: { paths: ['assets/**', 'scripts/**'] }
+  pull_request: { paths: ['assets/**', 'scripts/**'] }
+jobs:
+  sprites:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: 22 }
+      - run: npm run sprites
+      - name: Generated sprites are committed and up to date
+        run: git diff --exit-code -- public/assets || (echo "::error::Run 'npm run sprites' and commit the output" && exit 1)

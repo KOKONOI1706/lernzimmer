@@ -1,0 +1,15 @@
+{
+  "name": "lernzimmer",
+  "version": "0.0.0",
+  "private": true,
+  "description": "A cozy pixel study room for learning German",
+  "type": "module",
+  "engines": { "node": ">=18" },
+  "scripts": {
+    "sprites": "node scripts/build-sprites.mjs",
+    "sprites:check": "node scripts/build-sprites.mjs --check",
+    "assets:sync": "node scripts/sync-assets.mjs",
+    "assets:dry": "node scripts/sync-assets.mjs --dry",
+    "assets:search": "node scripts/sync-assets.mjs --search"
+  }
+}
