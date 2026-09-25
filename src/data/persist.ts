@@ -2,27 +2,68 @@ import { nanoid } from 'nanoid';
 import { db } from './db';
 import { DEFAULT_SETTINGS, pickSettings, useSettings, type SettingsState } from '../state/settings';
 import { useWindows, type WinState } from '../os/windows';
+import { useBoard, type BoardState } from '../board/store';
+import type { BoardItem } from '../board/types';
 
-const KEYS = { settings: 'settings', windows: 'windows' } as const;
+/** Single room until multi-room lands. */
+export const ROOM = 'main';
+type BoardPrefs = Pick<BoardState, 'camera' | 'toolbar' | 'color' | 'size' | 'textSize' | 'fill' | 'pixelSnap' | 'stickerSprite'>;
+const pickBoardPrefs = ({ camera, toolbar, color, size, textSize, fill, pixelSnap, stickerSprite }: BoardState): BoardPrefs =>
+  ({ camera, toolbar, color, size, textSize, fill, pixelSnap, stickerSprite });
+
+const KEYS = { settings: 'settings', windows: 'windows', board: 'board.prefs' } as const;
 const DEBOUNCE_MS = 500;
+/** items array last written to IndexedDB */
+let savedItems: BoardItem[] | undefined;
 
 /** Load saved state into the stores. Missing/broken data falls back to defaults. */
 export async function hydrate() {
   try {
-    const [s, w] = await Promise.all([db.kv.get(KEYS.settings), db.kv.get(KEYS.windows)]);
+    const [s, w, b, items] = await Promise.all([
+      db.kv.get(KEYS.settings), db.kv.get(KEYS.windows), db.kv.get(KEYS.board),
+      db.items.where('roomId').equals(ROOM).toArray(),
+    ]);
     if (s?.value) useSettings.getState().set({ ...DEFAULT_SETTINGS, ...(s.value as Partial<SettingsState>) });
-    if (Array.isArray(w?.value)) useWindows.getState().hydrate(w.value as WinState[]);
+    // windows of apps that no longer open a window (e.g. the old board placeholder) are dropped
+    if (Array.isArray(w?.value)) useWindows.getState().hydrate((w.value as WinState[]).filter((win) => win.appId !== 'board'));
+    const board = useBoard.getState();
+    board.hydrate(items.sort((a, b) => (a.z ?? 0) - (b.z ?? 0)).map(({ roomId: _room, z: _z, ...it }) => it as BoardItem));
+    savedItems = useBoard.getState().items;
+    if (b?.value) board.set(b.value as Partial<BoardPrefs>);
+    await collectGarbageBlobs();
   } catch (err) {
     console.warn('[lernzimmer] could not load saved state, starting fresh', err);
   }
 }
 
+/** Delete uploaded images that neither the background nor any board item uses. */
+async function collectGarbageBlobs() {
+  const used = new Set<string>();
+  const bg = useSettings.getState().background;
+  if (bg.kind === 'blob') used.add(bg.ref);
+  for (const it of useBoard.getState().items) if (it.kind === 'sticker' && it.blobId) used.add(it.blobId);
+  const unused = (await db.blobs.toCollection().primaryKeys()).filter((id) => !used.has(id));
+  if (unused.length) await db.blobs.bulkDelete(unused);
+}
+
+
 export async function saveNow() {
   const now = Date.now();
+  const board = useBoard.getState();
   await db.kv.bulkPut([
     { key: KEYS.settings, value: pickSettings(useSettings.getState()), updatedAt: now },
     { key: KEYS.windows, value: useWindows.getState().windows, updatedAt: now },
+    { key: KEYS.board, value: pickBoardPrefs(board), updatedAt: now },
   ]);
+  // Items only when they changed (the store replaces the array on every edit)
+  if (board.items !== savedItems) {
+    const items = board.items;
+    await db.transaction('rw', db.items, async () => {
+      await db.items.where('roomId').equals(ROOM).delete();
+      await db.items.bulkPut(items.map((it, z) => ({ ...it, roomId: ROOM, z })));
+    });
+    savedItems = items;
+  }
 }
 
 /** Debounced autosave on every store change, plus a flush when the tab is hidden. Returns an unsubscribe. */
@@ -35,7 +76,16 @@ export function startAutosave() {
   const flush = () => {
     if (document.visibilityState === 'hidden') { clearTimeout(timer); void saveNow(); }
   };
-  const unsubs = [useSettings.subscribe(schedule), useWindows.subscribe(schedule)];
+  const unsubs = [
+    useSettings.subscribe(schedule),
+    useWindows.subscribe(schedule),
+    // ignore selection/tool churn; save on content, camera and pref changes
+    useBoard.subscribe((s, prev) => {
+      if (s.items !== prev.items || s.camera !== prev.camera || s.toolbar !== prev.toolbar || s.color !== prev.color
+        || s.size !== prev.size || s.textSize !== prev.textSize || s.fill !== prev.fill || s.pixelSnap !== prev.pixelSnap
+        || s.stickerSprite !== prev.stickerSprite) schedule();
+    }),
+  ];
   document.addEventListener('visibilitychange', flush);
   return () => {
     clearTimeout(timer);

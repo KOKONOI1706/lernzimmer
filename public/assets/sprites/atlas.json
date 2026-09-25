@@ -76,14 +76,14 @@
       "h": 16
     },
     "sparkle_0": {
-      "x": 78,
-      "y": 52,
+      "x": 117,
+      "y": 65,
       "w": 9,
       "h": 9
     },
     "sparkle_1": {
-      "x": 88,
-      "y": 52,
+      "x": 1,
+      "y": 78,
       "w": 9,
       "h": 9
     },
@@ -136,20 +136,20 @@
       "h": 16
     },
     "flag_de": {
-      "x": 27,
-      "y": 52,
+      "x": 66,
+      "y": 65,
       "w": 16,
       "h": 11
     },
     "flag_vn": {
-      "x": 44,
-      "y": 52,
+      "x": 83,
+      "y": 65,
       "w": 16,
       "h": 11
     },
     "non_la": {
-      "x": 61,
-      "y": 52,
+      "x": 100,
+      "y": 65,
       "w": 16,
       "h": 10
     },
@@ -160,32 +160,32 @@
       "h": 12
     },
     "btn_close": {
-      "x": 98,
-      "y": 52,
+      "x": 11,
+      "y": 78,
       "w": 9,
       "h": 9
     },
     "btn_min": {
-      "x": 108,
-      "y": 52,
+      "x": 21,
+      "y": 78,
       "w": 9,
       "h": 9
     },
     "btn_max": {
-      "x": 118,
-      "y": 52,
+      "x": 31,
+      "y": 78,
       "w": 9,
       "h": 9
     },
     "play": {
-      "x": 1,
-      "y": 65,
+      "x": 41,
+      "y": 78,
       "w": 9,
       "h": 9
     },
     "pause": {
-      "x": 11,
-      "y": 65,
+      "x": 51,
+      "y": 78,
       "w": 9,
       "h": 9
     },
@@ -210,6 +210,78 @@
     "panel_aqua": {
       "x": 14,
       "y": 52,
+      "w": 12,
+      "h": 12
+    },
+    "tool_hand": {
+      "x": 27,
+      "y": 52,
+      "w": 12,
+      "h": 12
+    },
+    "tool_eraser": {
+      "x": 40,
+      "y": 52,
+      "w": 12,
+      "h": 12
+    },
+    "tool_highlighter": {
+      "x": 53,
+      "y": 52,
+      "w": 12,
+      "h": 12
+    },
+    "tool_rect": {
+      "x": 66,
+      "y": 52,
+      "w": 12,
+      "h": 12
+    },
+    "tool_ellipse": {
+      "x": 79,
+      "y": 52,
+      "w": 12,
+      "h": 12
+    },
+    "tool_arrow": {
+      "x": 92,
+      "y": 52,
+      "w": 12,
+      "h": 12
+    },
+    "tool_text": {
+      "x": 105,
+      "y": 52,
+      "w": 12,
+      "h": 12
+    },
+    "tool_image": {
+      "x": 1,
+      "y": 65,
+      "w": 12,
+      "h": 12
+    },
+    "tool_undo": {
+      "x": 14,
+      "y": 65,
+      "w": 12,
+      "h": 12
+    },
+    "tool_redo": {
+      "x": 27,
+      "y": 65,
+      "w": 12,
+      "h": 12
+    },
+    "tool_trash": {
+      "x": 40,
+      "y": 65,
+      "w": 12,
+      "h": 12
+    },
+    "tool_download": {
+      "x": 53,
+      "y": 65,
       "w": 12,
       "h": 12
     }
@@ -524,6 +596,114 @@
       ],
       "fps": 0,
       "slice": 4
+    },
+    "tool_hand": {
+      "frames": [
+        "tool_hand"
+      ],
+      "tags": [
+        "tool"
+      ],
+      "fps": 0
+    },
+    "tool_eraser": {
+      "frames": [
+        "tool_eraser"
+      ],
+      "tags": [
+        "tool"
+      ],
+      "fps": 0
+    },
+    "tool_highlighter": {
+      "frames": [
+        "tool_highlighter"
+      ],
+      "tags": [
+        "tool"
+      ],
+      "fps": 0
+    },
+    "tool_rect": {
+      "frames": [
+        "tool_rect"
+      ],
+      "tags": [
+        "tool"
+      ],
+      "fps": 0
+    },
+    "tool_ellipse": {
+      "frames": [
+        "tool_ellipse"
+      ],
+      "tags": [
+        "tool"
+      ],
+      "fps": 0
+    },
+    "tool_arrow": {
+      "frames": [
+        "tool_arrow"
+      ],
+      "tags": [
+        "tool"
+      ],
+      "fps": 0
+    },
+    "tool_text": {
+      "frames": [
+        "tool_text"
+      ],
+      "tags": [
+        "tool"
+      ],
+      "fps": 0
+    },
+    "tool_image": {
+      "frames": [
+        "tool_image"
+      ],
+      "tags": [
+        "tool"
+      ],
+      "fps": 0
+    },
+    "tool_undo": {
+      "frames": [
+        "tool_undo"
+      ],
+      "tags": [
+        "tool"
+      ],
+      "fps": 0
+    },
+    "tool_redo": {
+      "frames": [
+        "tool_redo"
+      ],
+      "tags": [
+        "tool"
+      ],
+      "fps": 0
+    },
+    "tool_trash": {
+      "frames": [
+        "tool_trash"
+      ],
+      "tags": [
+        "tool"
+      ],
+      "fps": 0
+    },
+    "tool_download": {
+      "frames": [
+        "tool_download"
+      ],
+      "tags": [
+        "tool"
+      ],
+      "fps": 0
     }
   }
 }

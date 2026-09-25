@@ -3,7 +3,7 @@
 > A cozy pixel study room for learning German. You decorate your own room: a whiteboard, stickers,
 > a clock, music, rain on the window. Then you study inside it with flashcards, mini games and focus timers.
 
-Status: **M1 (app shell) done.** This document is the spec that later milestones build against.
+Status: **M2 (whiteboard) done.** This document is the spec that later milestones build against.
 
 ---
 
@@ -341,7 +341,8 @@ interface GameAPI { sprites: Atlas; sfx(name: string): void; speak(de: string): 
 |---|---|---|
 | **M0** ✅ | Design doc, repo, sprite/asset pipeline, starter sprite set, procedural backgrounds | this commit |
 | **M1 Shell** ✅ | Vite app, themes and tokens, pixel UI kit (Panel/Button/Dialog), window manager, taskbar and start menu, Dexie setup, "Press START" splash | open/close/drag windows; theme switch persists |
-| **M2 Board** | Konva board: pen, eraser, shapes, text, notes, stickers (upload/paste), pins, undo/redo, pan/zoom, autosave, background picker | decorate a room, reload, it's still there |
+| **M2 Board** ✅ | Konva board: pen, eraser, shapes, text, notes, stickers (upload/paste), pins, undo/redo, pan/zoom, autosave, background picker | decorate a room, reload, it's still there |
+| | *M2 shipped:* pen (with pixel-grid snap), highlighter, stroke eraser, rect/ellipse/arrow, text, sticky notes, stickers (built-in sprites, upload, paste, drag-drop; outline + pixelate), pins that carry what they hold, select/marquee/multi-drag, transform, z-order, duplicate, undo/redo (100 steps), wheel zoom + pan, PNG export, autosave. *Deferred:* frames/regions, templates, minimap, JSON room export, item lock, "note → flashcard" (needs M4). | |
 | **M3 Widgets & sound** | Clock, Pomodoro, music embeds, procedural ambience plus mixer, word of the day, to-do | a full study session without leaving the room |
 | **M4 Learning core** | Decks, card editor, FSRS review, TTS, A1 starter deck (~500 words), note → card, import CSV/Anki | daily review loop works |
 | **M5 Arcade** | Game engine + Artikel-Regen, Memory, Zahlen-Sprint, Wie spät ist es?; then Kasus-Dungeon, Satzbau-Tetris, Verb-Schmiede | games write to ReviewLog |

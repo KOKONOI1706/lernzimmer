@@ -42,6 +42,7 @@ CI (`.github/workflows/assets.yml`) rebuilds sprites on every push and fails if 
 | Ambience | fire (anim, also the streak flame), tree, raindrop |
 | Germany 🇩🇪 | pretzel, dachshund *Brezel* (tail wag), flag_de |
 | Vietnam 🇻🇳 | non_la (conical hat), xe_may (motorbike), flag_vn |
+| Board tools (M2, 12×12) | tool_hand, tool_eraser, tool_highlighter, tool_rect, tool_ellipse, tool_arrow, tool_text, tool_image, tool_undo, tool_redo (mirrored), tool_trash, tool_download |
 | Backgrounds | berlin-night (Fernsehturm skyline), aquarium (inspired by reference 1) |
 
 ## Sound

@@ -8,7 +8,7 @@
 YouTube/Spotify, rain and fireplace sounds, Hanoi street noise. Then study inside it with spaced-repetition flashcards,
 der/die/das games, and Brezel the dachshund cheering you on.
 
-> Status: **M1 — app shell.** Pixel desktop, draggable windows, start menu, 3 themes, vi/en/de UI, backgrounds, local autosave.
+> Status: **M2 — whiteboard.** Your room is a pixel whiteboard: draw, write, sticky notes, stickers from your own photos, pins, undo/redo, zoom, PNG export. Plus the M1 shell: windows, start menu, 3 themes, vi/en/de UI, local autosave.
 
 - 📐 [System design](docs/DESIGN.md): vision, UI language, features, architecture, data model, roadmap
 - 🎨 [Asset pipeline](docs/ASSETS.md): sprites, palettes, backgrounds, CC0 audio sync

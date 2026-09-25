@@ -156,6 +156,45 @@ button { font: inherit; color: inherit; }
 .welcome__actions { display: flex; justify-content: space-between; align-items: center; }
 .welcome__pager { font-family: var(--font-label); font-size: 16px; color: var(--muted); }
 
+
+/* ───────────────────────────── whiteboard ───────────────────────────── */
+.board { position: absolute; inset: 0; overflow: hidden; touch-action: none; }
+.board canvas { image-rendering: auto; }
+
+.tb {
+  position: absolute; left: 50%; bottom: calc(var(--px) * 3); transform: translateX(-50%); z-index: 8000;
+  display: grid; gap: calc(var(--px) * 2); padding: calc(var(--px) * 2) calc(var(--px) * 3);
+  max-width: calc(100% - 24px);
+  background: var(--surface); border: var(--px) solid var(--win-border);
+  box-shadow: inset var(--px) var(--px) 0 var(--hilite), calc(var(--px) * 2) calc(var(--px) * 2) 0 rgba(13, 11, 30, 0.85), var(--glow);
+}
+.tb__row { display: flex; flex-wrap: wrap; gap: calc(var(--px) * 3); align-items: center; justify-content: center; }
+.tb__row--opts:empty { display: none; }
+.tb__group { display: flex; gap: var(--px); align-items: center; }
+.tb__group + .tb__group { padding-left: calc(var(--px) * 3); border-left: var(--px) dotted var(--muted); }
+.tb__btn { width: 38px; height: 38px; padding: 0; }
+.tb__text { height: 38px; padding: 0 10px; font-size: 22px; }
+.tb__zoom { min-width: 64px; }
+.tb__size { width: 38px; height: 38px; padding: 0; }
+.tb__stickers { flex-wrap: wrap; max-width: 520px; justify-content: center; }
+.tb__swatch { width: 24px; height: 24px; padding: 0; border: 2px solid var(--win-border); cursor: pointer; }
+.tb__swatch[aria-checked='true'] { outline: 3px solid var(--accent); outline-offset: 2px; }
+:root[data-theme='aquarium'] .ink-icon, :root[data-theme='violet'] .ink-icon { filter: invert(1); }
+.px-btn:disabled { opacity: 0.4; cursor: not-allowed; transform: none; }
+
+.board-editor {
+  position: absolute; z-index: 20; margin: 0; padding: 0; border: 0; outline: 2px dashed #3fd0ff; outline-offset: 2px;
+  background: transparent; resize: none; overflow: hidden; white-space: pre; user-select: text;
+}
+.board-editor--note { white-space: pre-wrap; }
+.umlauts { position: absolute; z-index: 21; display: flex; gap: 2px; }
+.umlauts .px-btn { height: 34px; padding: 0 8px; font-size: 24px; }
+
+.board-empty {
+  position: absolute; left: 50%; top: 42%; transform: translate(-50%, -50%); pointer-events: none;
+  font-size: 26px; color: #f4efe6; text-shadow: var(--px) var(--px) 0 #0d0b1e; text-align: center; opacity: 0.85;
+}
+
 /* pixel scrollbars (reference 2) */
 * { scrollbar-width: auto; scrollbar-color: var(--chrome) var(--surface-2); }
 ::-webkit-scrollbar { width: calc(var(--px) * 5); height: calc(var(--px) * 5); }

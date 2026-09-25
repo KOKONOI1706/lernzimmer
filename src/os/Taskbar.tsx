@@ -42,7 +42,7 @@ export function Taskbar({ sessionStart, onEnd }: { sessionStart: number; onEnd: 
         <div className="taskbar__wins">
           {windows.map((w) => {
             const app = appById(w.appId);
-            if (!app) return null;
+            if (!app?.render) return null;
             return (
               <button key={w.id} className="px-btn taskbar__win" aria-pressed={!w.minimized && focused === w.id} onClick={() => taskbarClick(w.id)}>
                 <Sprite name={app.icon} px={2} animate={false} />{t(app.title)}
