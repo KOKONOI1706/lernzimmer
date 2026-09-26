@@ -1,7 +1,7 @@
 import { create } from 'zustand';
 import { nanoid } from 'nanoid';
 import { db } from '../data/db';
-import { isNew, newSrs, schedule, type Card, type Deck, type Grade, type ReviewLog } from './cards';
+import { isNew, newSrs, Rating, schedule, State, type Card, type Deck, type Grade, type ReviewLog } from './cards';
 import type { CardFields } from './csv';
 import { STARTER_DECKS, STARTER_VERSION } from './starter';
 
@@ -28,6 +28,11 @@ interface LearnActions {
   updateCard: (id: string, fields: Partial<CardFields>) => Promise<void>;
   deleteCard: (id: string) => Promise<void>;
   review: (cardId: string, rating: Grade, ms: number, source?: string) => Promise<Card | undefined>;
+  /**
+   * An answer from a game. Counts as a real review only when the card is due (or in learning);
+   * otherwise it's logged as practice so fast arcade answers don't distort the schedule.
+   */
+  practice: (cardId: string, correct: boolean, ms: number, source: string) => Promise<'reviewed' | 'practice' | undefined>;
 }
 
 /** New cards still allowed today for a deck. */
@@ -116,6 +121,21 @@ export const useLearn = create<LearnState & LearnActions>()((set, get) => ({
       await db.logs.where('cardId').equals(id).delete();
     });
     set((s) => ({ cards: s.cards.filter((c) => c.id !== id), today: s.today.filter((l) => l.cardId !== id) }));
+  },
+
+  practice: async (cardId, correct, ms, source) => {
+    const cur = get().cards.find((c) => c.id === cardId);
+    if (!cur) return;
+    const now = Date.now();
+    const learning = cur.srs.state === State.Learning || cur.srs.state === State.Relearning;
+    if (!isNew(cur) && (learning || new Date(cur.srs.due).getTime() <= now)) {
+      await get().review(cardId, correct ? Rating.Good : Rating.Again, ms, source);
+      return 'reviewed';
+    }
+    const log: ReviewLog = { id: nanoid(12), cardId, deckId: cur.deckId, at: now, rating: correct ? Rating.Good : Rating.Again, wasNew: false, ms: Math.round(ms), source, practice: true };
+    await db.logs.put(log);
+    set((s) => ({ today: [...s.today, log] }));
+    return 'practice';
   },
 
   review: async (cardId, rating, ms, source = 'review') => {

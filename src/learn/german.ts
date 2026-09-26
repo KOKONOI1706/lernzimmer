@@ -20,6 +20,18 @@ export function numberToGerman(n: number): string {
   return `${k === 1 ? 'ein' : numberToGerman(k)}tausend${rest ? numberToGerman(rest) : ''}`;
 }
 
+/**
+ * Years are read differently from numbers: 1980 → "neunzehnhundertachtzig" (hundreds form) for 1100–1999;
+ * from 2000 on as ordinary numbers ("zweitausendsechsundzwanzig").
+ */
+export function germanYear(y: number): string {
+  if (y >= 1100 && y < 2000) {
+    const rest = y % 100;
+    return `${numberToGerman(Math.floor(y / 100))}hundert${rest ? numberToGerman(rest) : ''}`;
+  }
+  return numberToGerman(y);
+}
+
 /** Hour as used in colloquial phrases: 12-hour, "eins" not "ein". */
 const hourWord = (h: number) => numberToGerman(h % 12 || 12);
 

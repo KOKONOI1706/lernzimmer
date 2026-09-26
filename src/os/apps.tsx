@@ -4,7 +4,6 @@ import type { SpriteName } from '../ui/Sprite';
 import { useWindows, type OpenOptions } from './windows';
 import { WelcomeApp } from '../apps/WelcomeApp';
 import { SettingsApp } from '../apps/SettingsApp';
-import { ComingSoon } from '../apps/ComingSoon';
 import { useBoard } from '../board/store';
 import { ClockApp } from '../apps/ClockApp';
 import { FocusApp } from '../apps/FocusApp';
@@ -14,6 +13,7 @@ import { WordApp } from '../apps/WordApp';
 import { TodoApp } from '../apps/TodoApp';
 import { CardsApp } from '../apps/cards/CardsApp';
 import { CalendarApp } from '../apps/CalendarApp';
+import { ArcadeApp } from '../apps/arcade/ArcadeApp';
 
 export interface AppDef {
   id: string;
@@ -28,7 +28,6 @@ export interface AppDef {
   action?: () => void;
 }
 
-const soon = (icon: SpriteName, milestone: string) => () => <ComingSoon icon={icon} milestone={milestone} />;
 
 export const APPS: AppDef[] = [
   // The board is the desktop itself; its icon shows/hides the toolbar.
@@ -38,7 +37,7 @@ export const APPS: AppDef[] = [
     b.set({ toolbar: !b.toolbar });
   } },
   { id: 'cards', title: 'app.cards', icon: 'book', size: { w: 600, h: 640 }, singleton: true, desktop: true, render: () => <CardsApp /> },
-  { id: 'arcade', title: 'app.arcade', icon: 'coin', size: { w: 560, h: 440 }, singleton: true, desktop: true, render: soon('coin', 'M5') },
+  { id: 'arcade', title: 'app.arcade', icon: 'coin', size: { w: 620, h: 640 }, singleton: true, desktop: true, render: () => <ArcadeApp /> },
   { id: 'radio', title: 'app.radio', icon: 'music_note', size: { w: 520, h: 560 }, singleton: true, desktop: true, render: () => <RadioApp /> },
   { id: 'ambience', title: 'app.ambience', icon: 'fire', size: { w: 480, h: 600 }, singleton: true, desktop: true, render: () => <AmbienceApp /> },
   { id: 'focus', title: 'app.focus', icon: 'tomato', size: { w: 400, h: 470 }, singleton: true, desktop: true, render: () => <FocusApp /> },

@@ -40,6 +40,8 @@ export interface ReviewLog {
   wasNew: boolean;
   ms: number;
   source: 'review' | string;
+  /** logged from a game without changing the card's schedule */
+  practice?: boolean;
 }
 
 const scheduler = fsrs(generatorParameters({ enable_fuzz: true, request_retention: 0.9 }));
