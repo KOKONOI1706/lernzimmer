@@ -12,6 +12,7 @@ import { RadioApp } from '../apps/RadioApp';
 import { AmbienceApp } from '../apps/AmbienceApp';
 import { WordApp } from '../apps/WordApp';
 import { TodoApp } from '../apps/TodoApp';
+import { CardsApp } from '../apps/cards/CardsApp';
 
 export interface AppDef {
   id: string;
@@ -35,7 +36,7 @@ export const APPS: AppDef[] = [
     if (b.toolbar) b.setTool('select');
     b.set({ toolbar: !b.toolbar });
   } },
-  { id: 'cards', title: 'app.cards', icon: 'book', size: { w: 520, h: 420 }, singleton: true, desktop: true, render: soon('book', 'M4') },
+  { id: 'cards', title: 'app.cards', icon: 'book', size: { w: 600, h: 640 }, singleton: true, desktop: true, render: () => <CardsApp /> },
   { id: 'arcade', title: 'app.arcade', icon: 'coin', size: { w: 560, h: 440 }, singleton: true, desktop: true, render: soon('coin', 'M5') },
   { id: 'radio', title: 'app.radio', icon: 'music_note', size: { w: 520, h: 560 }, singleton: true, desktop: true, render: () => <RadioApp /> },
   { id: 'ambience', title: 'app.ambience', icon: 'fire', size: { w: 480, h: 600 }, singleton: true, desktop: true, render: () => <AmbienceApp /> },

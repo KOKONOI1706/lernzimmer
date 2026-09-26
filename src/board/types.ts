@@ -15,7 +15,8 @@ export interface StrokeItem extends Base { kind: 'stroke'; points: number[]; col
 /** rect/ellipse: box at (x,y,w,h). arrow: from (x,y) to (x+w, y+h) — w/h may be negative. */
 export interface ShapeItem extends Base { kind: 'shape'; shape: 'rect' | 'ellipse' | 'arrow'; w: number; h: number; stroke: string; fill?: string; size: number }
 export interface TextItem extends Base { kind: 'text'; text: string; size: number; color: string; w?: number }
-export interface NoteItem extends Base { kind: 'note'; text: string; color: string; w: number; h: number }
+/** cardId: flashcard made from this note (see learn/fromNote.ts) */
+export interface NoteItem extends Base { kind: 'note'; text: string; color: string; w: number; h: number; cardId?: string }
 export interface StickerItem extends Base {
   kind: 'sticker';
   /** uploaded image in db.blobs, or a built-in sprite name */
