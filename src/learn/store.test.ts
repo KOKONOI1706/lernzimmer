@@ -66,3 +66,20 @@ describe('learn store', () => {
     expect(await db.cards.where('deckId').equals(d.id).count()).toBe(0);
   });
 });
+
+describe('practice from games', () => {
+  it('counts as a review only for due cards; otherwise logs practice without rescheduling', async () => {
+    await useLearn.getState().load();
+    const [fresh, due] = useLearn.getState().cards;
+    // make `due` a review card that is due now
+    useLearn.setState((s) => ({ cards: s.cards.map((c) => (c.id === due.id ? { ...c, srs: { ...c.srs, state: State.Review, due: new Date(Date.now() - 1000), reps: 3, stability: 5, difficulty: 5, last_review: new Date(Date.now() - 5 * 86_400_000) } } : c)) }));
+    expect(await useLearn.getState().practice(fresh.id, true, 800, 'game:artikel')).toBe('practice');
+    expect(useLearn.getState().cards.find((c) => c.id === fresh.id)!.srs.state).toBe(State.New);
+    expect(await useLearn.getState().practice(due.id, true, 800, 'game:artikel')).toBe('reviewed');
+    expect(new Date(useLearn.getState().cards.find((c) => c.id === due.id)!.srs.due).getTime()).toBeGreaterThan(Date.now());
+    const logs = useLearn.getState().today;
+    expect(logs.map((l) => [l.source, !!l.practice, l.wasNew])).toEqual([['game:artikel', true, false], ['game:artikel', false, false]]);
+    // practice never eats into the daily new-card allowance
+    expect(newLeftToday(useLearn.getState(), fresh.deckId)).toBe(10);
+  });
+});

@@ -43,11 +43,13 @@ function makeQuestion(): Question {
   return { h, m, options, answer };
 }
 
-function Quiz({ onBack }: { onBack: () => void }) {
+/** "Wie spät ist es?" quiz. `onBack` receives the best streak of the session (for arcade high scores). */
+export function ClockQuiz({ onBack }: { onBack: (bestStreak: number) => void }) {
   const t = useT();
   const [q, setQ] = useState(makeQuestion);
   const [picked, setPicked] = useState<string>();
   const [streak, setStreak] = useState(0);
+  const [bestStreak, setBestStreak] = useState(0);
   const right = picked === q.answer;
 
   const pick = (o: string) => {
@@ -56,6 +58,7 @@ function Quiz({ onBack }: { onBack: () => void }) {
     const ok = o === q.answer;
     audio.chime(ok ? 'ok' : 'no');
     setStreak(ok ? streak + 1 : 0);
+    if (ok) setBestStreak((b) => Math.max(b, streak + 1));
     speak(itIs(q.answer));
   };
 
@@ -81,7 +84,7 @@ function Quiz({ onBack }: { onBack: () => void }) {
         </p>
       )}
       <div className="px-row" style={{ justifyContent: 'space-between' }}>
-        <button className="px-btn" onClick={onBack}>{t('clock.back')}</button>
+        <button className="px-btn" onClick={() => onBack(bestStreak)}>{t('clock.back')}</button>
         <button className="px-btn px-btn--primary" disabled={!picked} onClick={() => { setQ(makeQuestion()); setPicked(undefined); }}>{t('clock.next')} ▶</button>
       </div>
     </div>
@@ -98,7 +101,7 @@ export function ClockApp() {
   // phrases only change once a minute
   const phrases = useMemo(() => ({ col: itIs(germanTimeColloquial(h, m)), off: itIs(germanTimeOfficial(h, m)) }), [h, m]);
 
-  if (quiz) return <Quiz onBack={() => setQuiz(false)} />;
+  if (quiz) return <ClockQuiz onBack={() => setQuiz(false)} />;
   return (
     <div className="clock">
       <div className="clock__top">
