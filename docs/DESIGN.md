@@ -3,7 +3,7 @@
 > A cozy pixel study room for learning German. You decorate your own room: a whiteboard, stickers,
 > a clock, music, rain on the window. Then you study inside it with flashcards, mini games and focus timers.
 
-Status: **M3 (widgets & sound) done.** This document is the spec that later milestones build against.
+Status: **M4 (learning core) done.** This document is the spec that later milestones build against.
 
 ---
 
@@ -345,7 +345,8 @@ interface GameAPI { sprites: Atlas; sfx(name: string): void; speak(de: string): 
 | | *M2 shipped:* pen (with pixel-grid snap), highlighter, stroke eraser, rect/ellipse/arrow, text, sticky notes, stickers (built-in sprites, upload, paste, drag-drop; outline + pixelate), pins that carry what they hold, select/marquee/multi-drag, transform, z-order, duplicate, undo/redo (100 steps), wheel zoom + pan, PNG export, autosave. *Deferred:* frames/regions, templates, minimap, JSON room export, item lock, "note → flashcard" (needs M4). | |
 | **M3 Widgets & sound** ✅ | Clock, Pomodoro, music embeds, procedural ambience plus mixer, word of the day, to-do | a full study session without leaving the room |
 | | *M3 shipped:* clock with everyday + official German time (TTS) and a "Wie spät ist es?" quiz; Pomodoro focus timer (wall-clock based, taskbar chip, tab title, chime, daily tomatoes); Radio for YouTube / Spotify / SoundCloud embeds, MP3 links and local files; ambience mixer with 9 procedural layers + 12 recorded slots and 6 presets; word of the day (42 A1 nouns, pin to board); to-do list. *Deferred:* frameless "pin window to board" widgets (windows already keep their position), weather window, calendar/streak, proverb widget, music ducking, curating the 12 CC0 recordings. | |
-| **M4 Learning core** | Decks, card editor, FSRS review, TTS, A1 starter deck (~500 words), note → card, import CSV/Anki | daily review loop works |
+| **M4 Learning core** ✅ | Decks, card editor, FSRS review, TTS, A1 starter deck (~500 words), note → card, import CSV/Anki | daily review loop works |
+| | *M4 shipped:* decks + card editor, FSRS scheduling (ts-fsrs) with daily new-card limits and in-session relearning, two review modes (pick der/die/das → reveal, or type the German with umlaut bar; article and spelling graded separately with a suggested rating), TTS, keyboard-only review, two built-in A1 decks (194 nouns in 11 topics, 46 verbs & phrases), note → flashcard from the board, CSV/TSV import & export incl. Anki plain-text, due badge on the desktop icon. *Deferred:* images/audio on cards, cloze cards, statistics screen, .apkg import. | |
 | **M5 Arcade** | Game engine + Artikel-Regen, Memory, Zahlen-Sprint, Wie spät ist es?; then Kasus-Dungeon, Satzbau-Tetris, Verb-Schmiede | games write to ReviewLog |
 | **M6 Gamify** | XP, coins, streak, quests, Brezel pet, shop, achievements, boss fight | the retention loop is closed |
 | **M7 Cloud & PWA** | PWA install, offline cache, optional Supabase sync, room sharing link, deploy | installable, works across devices |

@@ -10,6 +10,15 @@ import { useT } from '../i18n';
 import { Board } from '../board/Board';
 import { Toolbar } from '../board/Toolbar';
 import { useBoard } from '../board/store';
+import { useLearn } from '../learn/store';
+import { deckCounts } from '../apps/cards/DeckList';
+
+/** Cards waiting today across all decks (for the desktop icon badge). */
+function useCardsWaiting() {
+  const s = useLearn();
+  if (!s.loaded) return 0;
+  return s.decks.reduce((n, d) => { const c = deckCounts(d, s.cards, s); return n + c.due + c.fresh; }, 0);
+}
 
 export function Desktop({ sessionStart, onEnd }: { sessionStart: number; onEnd: () => void }) {
   const t = useT();
@@ -21,6 +30,7 @@ export function Desktop({ sessionStart, onEnd }: { sessionStart: number; onEnd: 
   const focused = focusedId(windows);
   const toolbar = useBoard((s) => s.toolbar);
   const empty = useBoard((s) => s.items.length === 0);
+  const waiting = useCardsWaiting();
 
   return (
     <div className="desktop">
@@ -37,6 +47,7 @@ export function Desktop({ sessionStart, onEnd }: { sessionStart: number; onEnd: 
               onDoubleClick={() => openApp(a.id)}
               onKeyDown={(e) => e.key === 'Enter' && openApp(a.id)}>
               <Sprite name={a.icon} animate={false} />
+              {a.id === 'cards' && waiting > 0 && <b className="icon__badge" aria-label={`${waiting}`}>{waiting > 99 ? '99+' : waiting}</b>}
               <span>{t(a.title)}</span>
             </button>
           ))}

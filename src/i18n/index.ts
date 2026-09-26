@@ -11,4 +11,8 @@ export function useT() {
   return (key: StringKey) => translate(lang, key);
 }
 
+/** Fill "{n} Karten" style placeholders. */
+export const fmt = (str: string, vars: Record<string, string | number>) =>
+  str.replace(/\{(\w+)\}/g, (_, k: string) => String(vars[k] ?? `{${k}}`));
+
 export type { Lang, StringKey };

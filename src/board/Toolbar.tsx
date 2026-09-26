@@ -5,7 +5,9 @@ import { stepZoom, zoomAt } from './geometry';
 import { INK_COLORS, NOTE_COLORS, SIZES, type BoardItem, type Tool } from './types';
 import { STICKER_SPRITES } from './stickers';
 import { Sprite, type SpriteName } from '../ui/Sprite';
-import { useT, type StringKey } from '../i18n';
+import { fmt, useT, type StringKey } from '../i18n';
+import { noteToCard } from '../learn/fromNote';
+import { useToast } from '../ui/toast';
 
 const TOOLS: { tool: Tool; icon: SpriteName; key: string }[][] = [
   [{ tool: 'select', icon: 'cursor', key: 'V' }, { tool: 'hand', icon: 'tool_hand', key: 'H' }],
@@ -106,6 +108,16 @@ export function Toolbar() {
               <IconBtn icon="sticky_note" title={`${t('board.duplicate')} (Ctrl+D)`} onClick={() => s.duplicate(s.selected)} />
               <IconBtn icon="tool_trash" title={`${t('board.delete')} (Del)`} onClick={() => s.remove(s.selected)} />
             </div>
+            {sel.length === 1 && sel[0].kind === 'note' && (
+              <button className="px-btn tb__text" onClick={async () => {
+                const note = sel[0];
+                if (note.kind !== 'note') return;
+                const r = await noteToCard(note, t('deck.board'));
+                if (r) useToast.getState().show(fmt(t(r.updated ? 'board.cardUpdated' : 'board.cardSaved'), { w: r.word }), 3000);
+              }}>
+                <Sprite name="book" px={2} />{t('board.toCard')}
+              </button>
+            )}
           </>
         )}
 

@@ -7,9 +7,11 @@ import './styles/theme.css';
 import './styles/app.css';
 import { App } from './app/App';
 import { hydrate, startAutosave } from './data/persist';
+import { useLearn } from './learn/store';
 
 await hydrate();
 startAutosave();
+void useLearn.getState().load(); // flashcards live in their own tables; seeds the starter decks on first run
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>

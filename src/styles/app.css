@@ -285,6 +285,94 @@ button { font: inherit; color: inherit; }
 .todo__list .px-check { flex: 1; }
 .todo__empty { display: grid; justify-items: center; gap: 8px; margin: 12px 0; color: var(--muted); text-align: center; }
 
+/* ───────────────────────────── M4 flashcards ───────────────────────────── */
+kbd { font-family: var(--font-label); font-size: 12px; border: 1px solid currentColor; padding: 0 3px; margin-right: 6px; opacity: 0.7; }
+.umlaut-bar { display: flex; gap: 2px; flex-wrap: wrap; }
+.umlaut-bar .px-btn { padding: 0 8px; min-width: 32px; font-size: 22px; }
+.icon { position: relative; }
+.icon__badge {
+  position: absolute; top: 0; right: calc(var(--px) * 4); min-width: 22px; padding: 0 4px;
+  background: var(--die); color: #fff; border: 2px solid #0d0b1e; font-size: 16px; line-height: 18px; text-align: center;
+}
+
+.decks, .deckview, .review { display: grid; gap: calc(var(--px) * 4); align-content: start; }
+.decks__today { display: flex; align-items: center; gap: 8px; font-size: 24px; }
+.decks__list, .cardlist { list-style: none; margin: 0; padding: 0; display: grid; gap: calc(var(--px) * 2); }
+.deck {
+  display: grid; grid-template-columns: 1fr auto; gap: calc(var(--px) * 3); align-items: center;
+  background: var(--surface-2); border: var(--px) solid var(--win-border); padding: calc(var(--px) * 3);
+  box-shadow: calc(var(--px) * 2) calc(var(--px) * 2) 0 rgba(13, 11, 30, 0.85);
+}
+.deck__info { display: grid; gap: 2px; min-width: 0; }
+.deck__name { font-size: 26px; }
+.deck__counts { display: flex; flex-wrap: wrap; gap: 12px; font-size: 20px; }
+.deck__due { color: var(--die-ink); }
+.deck__new { color: var(--der-ink); }
+.deck__total { color: var(--muted); }
+.deck__actions { display: flex; flex-wrap: wrap; gap: var(--px); justify-content: flex-end; }
+
+.deckview__head { display: flex; gap: calc(var(--px) * 2); align-items: center; }
+.deckview__name { flex: 1; font-size: 24px; }
+.deckview__tools { display: flex; flex-wrap: wrap; gap: calc(var(--px) * 2); align-items: end; }
+.deckview__limit { display: grid; gap: 2px; margin: 0 0 0 auto; }
+.deckview__limit .px-input { width: 90px; }
+.deckview__delete { justify-self: start; color: var(--die-ink); }
+.cardlist li { display: flex; align-items: center; gap: calc(var(--px) * 2); border-bottom: var(--px) dotted var(--muted); padding: 2px 0; }
+.cardlist__main { flex: 1; display: flex; gap: 12px; align-items: baseline; background: none; border: 0; padding: 0; text-align: left; cursor: pointer; min-width: 0; font-size: 22px; }
+.cardlist__meaning { color: var(--muted); overflow: hidden; white-space: nowrap; text-overflow: ellipsis; }
+.cardlist__state { font-family: var(--font-label-t); font-size: calc(13px * var(--t-scale)); color: var(--label); white-space: nowrap; }
+
+.cardform { display: grid; gap: calc(var(--px) * 3); }
+.cardform .px-label { display: grid; gap: 2px; margin: 0; }
+.cardform__two { display: grid; grid-template-columns: 1fr 1fr; gap: calc(var(--px) * 3); }
+
+.headword__art { font-weight: bold; }
+.headword__blank { color: var(--muted); letter-spacing: 2px; }
+
+.review { outline: none; }
+.review__head { display: flex; align-items: center; gap: calc(var(--px) * 3); }
+.review__deck { flex: 1; font-size: 22px; color: var(--muted); overflow: hidden; white-space: nowrap; text-overflow: ellipsis; }
+.review__left { font-size: 22px; }
+.cardface {
+  background: var(--surface-2); border: var(--px) solid var(--win-border); border-top-width: calc(var(--px) * 3);
+  padding: calc(var(--px) * 6) calc(var(--px) * 5); display: grid; gap: calc(var(--px) * 3); justify-items: center; text-align: center;
+  box-shadow: calc(var(--px) * 2) calc(var(--px) * 2) 0 rgba(13, 11, 30, 0.85);
+  animation: pop-in 120ms steps(3);
+}
+.cardface--der { border-top-color: var(--der); }
+.cardface--die { border-top-color: var(--die); }
+.cardface--das { border-top-color: var(--das); }
+.cardface__main { font-size: 48px; line-height: 1.05; }
+.cardface__plural { font-size: 24px; color: var(--muted); }
+.cardface__meaning { font-size: 30px; }
+.cardface__meaning--prompt { font-size: 36px; }
+.cardface .word__example { text-align: left; justify-self: stretch; }
+.cardface .px-label { margin: 0; }
+.review__genders { display: flex; gap: calc(var(--px) * 3); }
+.gender-btn { min-width: 96px; font-size: 28px; font-weight: bold; }
+.gender-btn--der { color: var(--der-ink); } .gender-btn--die { color: var(--die-ink); } .gender-btn--das { color: var(--das-ink); }
+.gender-btn[aria-pressed='true'].gender-btn--der { background: var(--der); color: #fff; }
+.gender-btn[aria-pressed='true'].gender-btn--die { background: var(--die); color: #fff; }
+.gender-btn[aria-pressed='true'].gender-btn--das { background: var(--das); color: #0d0b1e; }
+.review__hint { margin: 0; color: var(--muted); }
+.review__type { display: flex; gap: calc(var(--px) * 2); width: 100%; }
+.review__type .px-input { flex: 1; font-size: 28px; }
+.review__verdict { margin: 0; font-size: 26px; text-align: center; padding: calc(var(--px) * 2); border: var(--px) solid var(--win-border); }
+.review__verdict.is-good { background: var(--das); color: #0d0b1e; }
+.review__verdict.is-bad { background: var(--die); color: #fff; }
+.review__verdict.is-bad .g-der, .review__verdict.is-bad .g-die, .review__verdict.is-bad .g-das { color: #fff; font-weight: bold; text-decoration: underline; }
+.review__verdict.is-meh { background: var(--plural); color: #0d0b1e; }
+.review__typed { opacity: 0.8; text-decoration: line-through; }
+.review__grades { display: grid; grid-template-columns: repeat(4, 1fr); gap: calc(var(--px) * 2); }
+.grade { flex-direction: column; gap: 0; padding: calc(var(--px) * 2); font-size: 22px; }
+.grade small { font-size: 16px; opacity: 0.8; }
+.grade[aria-pressed='true'] { outline: calc(var(--px)) solid var(--accent); outline-offset: 2px; }
+.grade--again { border-color: var(--die); } .grade--hard { border-color: var(--plural); }
+.grade--good { border-color: var(--das); } .grade--easy { border-color: var(--der); }
+.review__keys { margin: 0; font-size: 16px; color: var(--muted); text-align: center; }
+.review--done { justify-items: center; text-align: center; }
+.review--done h3 { font-family: var(--font-head-t); font-size: calc(18px * var(--t-scale)); margin: 0; }
+
 /* pixel scrollbars (reference 2) */
 * { scrollbar-width: auto; scrollbar-color: var(--chrome) var(--surface-2); }
 ::-webkit-scrollbar { width: calc(var(--px) * 5); height: calc(var(--px) * 5); }
