@@ -12,6 +12,7 @@ import { Toolbar } from '../board/Toolbar';
 import { useBoard } from '../board/store';
 import { useLearn } from '../learn/store';
 import { deckCounts } from '../apps/cards/DeckList';
+import { openNow, useCalendar } from '../calendar/store';
 
 /** Cards waiting today across all decks (for the desktop icon badge). */
 function useCardsWaiting() {
@@ -31,6 +32,7 @@ export function Desktop({ sessionStart, onEnd }: { sessionStart: number; onEnd: 
   const toolbar = useBoard((s) => s.toolbar);
   const empty = useBoard((s) => s.items.length === 0);
   const waiting = useCardsWaiting();
+  const openToday = useCalendar((s) => openNow(s));
 
   return (
     <div className="desktop">
@@ -48,6 +50,7 @@ export function Desktop({ sessionStart, onEnd }: { sessionStart: number; onEnd: 
               onKeyDown={(e) => e.key === 'Enter' && openApp(a.id)}>
               <Sprite name={a.icon} animate={false} />
               {a.id === 'cards' && waiting > 0 && <b className="icon__badge" aria-label={`${waiting}`}>{waiting > 99 ? '99+' : waiting}</b>}
+              {(a.id === 'calendar' || a.id === 'todo') && openToday > 0 && <b className="icon__badge icon__badge--cal" aria-label={`${openToday}`}>{openToday}</b>}
               <span>{t(a.title)}</span>
             </button>
           ))}

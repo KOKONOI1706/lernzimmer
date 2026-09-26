@@ -13,6 +13,7 @@ import { AmbienceApp } from '../apps/AmbienceApp';
 import { WordApp } from '../apps/WordApp';
 import { TodoApp } from '../apps/TodoApp';
 import { CardsApp } from '../apps/cards/CardsApp';
+import { CalendarApp } from '../apps/CalendarApp';
 
 export interface AppDef {
   id: string;
@@ -43,6 +44,7 @@ export const APPS: AppDef[] = [
   { id: 'focus', title: 'app.focus', icon: 'tomato', size: { w: 400, h: 470 }, singleton: true, desktop: true, render: () => <FocusApp /> },
   { id: 'clock', title: 'app.clock', icon: 'clock', size: { w: 460, h: 560 }, singleton: true, desktop: true, render: () => <ClockApp /> },
   { id: 'word', title: 'app.word', icon: 'flag_de', size: { w: 440, h: 460 }, singleton: true, desktop: true, render: () => <WordApp /> },
+  { id: 'calendar', title: 'app.calendar', icon: 'calendar', size: { w: 720, h: 700 }, singleton: true, desktop: true, render: () => <CalendarApp /> },
   { id: 'todo', title: 'app.todo', icon: 'checklist', size: { w: 400, h: 440 }, singleton: true, desktop: true, render: () => <TodoApp /> },
   { id: 'settings', title: 'app.settings', icon: 'cursor', size: { w: 520, h: 520 }, singleton: true, desktop: true, render: () => <SettingsApp /> },
   { id: 'welcome', title: 'app.welcome', icon: 'heart', size: { w: 560, h: 470 }, singleton: true, render: ({ winId }) => <WelcomeApp winId={winId} /> },

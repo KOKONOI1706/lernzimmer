@@ -12,6 +12,7 @@ der/die/das games, and Brezel the dachshund cheering you on.
 
 - 📐 [System design](docs/DESIGN.md): vision, UI language, features, architecture, data model, roadmap
 - 🎨 [Asset pipeline](docs/ASSETS.md): sprites, palettes, backgrounds, CC0 audio sync
+- 📅 [Google Calendar sync](docs/GOOGLE_CALENDAR.md): optional, set up with your own OAuth client ID
 
 ## Quick start
 ```bash

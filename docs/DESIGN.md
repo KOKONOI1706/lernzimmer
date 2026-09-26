@@ -140,8 +140,8 @@ A user can own several rooms (for example "Morgen-Café", "Prüfungsbunker", "We
 | **Ambience mixer** | Mix several layers, each with its own volume (see §4.3) |
 | **Word of the day** | Sticky note that flips daily, with gender colour, plural and example sentence. Plays audio on click. |
 | **Deck mini-review** | A tiny flashcard stack on the board: review 5 cards without opening an app |
-| **To-do / Hausaufgaben** | Checklist with pixel checkboxes |
-| **Calendar & streak** | Month grid. Study days are stamped. Exam countdown ("Goethe B1 in 42 Tagen"). |
+| **To-do / Hausaufgaben** ✅ | Task view of the calendar: overdue / today / upcoming / someday (undated) / done; one data source with the Kalender |
+| **Calendar & streak** ✅ | *Kalender* app: month grid, tasks / appointments / exams, study stamps per day (focus sessions + card reviews), exam countdown, optional **Google Calendar** sync (see `GOOGLE_CALENDAR.md`). |
 | **Pet** | Brezel the dachshund 🐶 (see §4.6) |
 | **Quote / proverb** | German Sprichwort with a Vietnamese translation |
 | **Weather window** | Shows the weather outside in a German city of your choice, with the vocabulary ("Es nieselt") |

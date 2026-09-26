@@ -767,4 +767,23 @@ export const sprites = {
     '.kkkkkkkkkkkkkk.',
     '................',
   ]] },
+
+  calendar: { tags: ['widget', 'calendar'], frames: [[
+    '................',
+    '...k........k...',
+    '.kkkkkkkkkkkkkk.',
+    '.krrrrrrrrrrrrk.',
+    '.krrrrrrrrrrrrk.',
+    '.kkkkkkkkkkkkkk.',
+    '.kwwwwwwwwwwwwk.',
+    '.kwkkwkkwkkwwwk.',
+    '.kwwwwwwwwwwwwk.',
+    '.kwkkwkkwbbwwwk.',
+    '.kwwwwwwwwwwwwk.',
+    '.kwkkwkkwkkwwwk.',
+    '.kwwwwwwwwwwwwk.',
+    '.kkkkkkkkkkkkkk.',
+    '................',
+    '................',
+  ]] },
 };

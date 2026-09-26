@@ -7,7 +7,8 @@ import type { BoardItem } from '../board/types';
 import { useMixer } from '../audio/mixer';
 import { pickTimer, useTimer, type TimerState } from '../focus/timer';
 import { useRadio } from '../media/radio';
-import { useTodos, type Todo } from '../state/todos';
+import { migrateTodos, useCalendar, type LegacyTodo } from '../calendar/store';
+import type { CalEntry } from '../calendar/types';
 
 /** Small stores saved as one kv row each. `pick` = what to save, `load` = how to restore. */
 const SIMPLE_STORES = [
@@ -17,8 +18,10 @@ const SIMPLE_STORES = [
     load: (v: unknown) => useTimer.getState().hydrate(v as Partial<TimerState>) },
   { key: 'radio', store: useRadio, pick: () => ({ tracks: useRadio.getState().tracks, current: useRadio.getState().current }),
     load: (v: unknown) => useRadio.getState().hydrate(v as { tracks: [] }) },
-  { key: 'todos', store: useTodos, pick: () => useTodos.getState().todos,
-    load: (v: unknown) => Array.isArray(v) && useTodos.getState().hydrate(v as Todo[]) },
+  // Google events themselves are never stored: they're re-fetched after connecting
+  { key: 'calendar', store: useCalendar,
+    pick: () => { const c = useCalendar.getState(); return { entries: c.entries, googleDone: c.googleDone, wantsGoogle: c.wantsGoogle }; },
+    load: (v: unknown) => useCalendar.getState().hydrate(v as { entries: CalEntry[]; googleDone: Record<string, true>; wantsGoogle: boolean }) },
 ] as const;
 
 /** Single room until multi-room lands. */
@@ -41,6 +44,7 @@ export async function hydrate() {
       ...SIMPLE_STORES.map((x) => db.kv.get(x.key)),
     ]);
     SIMPLE_STORES.forEach((x, i) => simple[i]?.value !== undefined && x.load(simple[i]!.value));
+    await migrateLegacyTodos();
     if (s?.value) useSettings.getState().set({ ...DEFAULT_SETTINGS, ...(s.value as Partial<SettingsState>) });
     // windows of apps that no longer open a window (e.g. the old board placeholder) are dropped
     if (Array.isArray(w?.value)) useWindows.getState().hydrate((w.value as WinState[]).filter((win) => win.appId !== 'board'));
@@ -53,6 +57,17 @@ export async function hydrate() {
     console.warn('[lernzimmer] could not load saved state, starting fresh', err);
   }
 }
+
+/** The to-do list merged into the calendar: move old items over once, as undated tasks. */
+async function migrateLegacyTodos() {
+  const old = await db.kv.get(LEGACY_TODOS);
+  if (!old) return;
+  const todos = Array.isArray(old.value) ? (old.value as LegacyTodo[]) : [];
+  for (const e of migrateTodos(todos)) await useCalendar.getState().add(e);
+  await saveNow();
+  await db.kv.delete(LEGACY_TODOS);
+}
+const LEGACY_TODOS = 'todos';
 
 /** Delete uploaded images that neither the background nor any board item uses. */
 async function collectGarbageBlobs() {
