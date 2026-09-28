@@ -31,6 +31,23 @@
   --t-scale: 1.6;
 }
 
+:root[data-theme='pastel95'] {
+  --der-ink: #2f5bb5; --die-ink: #c43346; --das-ink: #2e8b4e;
+  --label: #5d6d74;
+  --desk: #76a297;
+  --ink: #2b2636;
+  --surface: #f4efe4;
+  --surface-2: #e8e1d3;
+  --hilite: #ffffff;
+  --muted: #a39cae;
+  --chrome: #599b8d;
+  --chrome-ink: #ffffff;
+  --accent: #e59f42;
+  --win-border: #3d3748;
+  --glow: none;
+  --scrim: rgba(43, 38, 54, 0.45);
+}
+
 :root[data-theme='synthwave'] {
   --der-ink: #01cdfe; --die-ink: #ff3b8b; --das-ink: #05ffa1;
   --label: #f472b6;

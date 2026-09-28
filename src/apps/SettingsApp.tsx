@@ -8,6 +8,7 @@ import { useT } from '../i18n';
 
 /** Colours used for the little theme preview swatches. */
 const SWATCH: Record<ThemeId, { bar: string; body: string }> = {
+  pastel95: { bar: '#599b8d', body: '#f4efe4' },
   synthwave: { bar: '#ff3b8b', body: '#18092e' },
   phosphor: { bar: '#2ecc71', body: '#07170a' },
   aconite: { bar: '#1f4fd1', body: '#f4efe6' },

@@ -68,11 +68,14 @@ export function Window({ win, title, icon, focused, children }: Props) {
       onPointerDownCapture={() => focus(win.id)}
     >
       <div className="win__bar" onPointerDown={onBarDown} onDoubleClick={() => toggleMaximize(win.id)}>
-        <div className="win__title"><Sprite name={icon} px={2} animate={false} />{title}</div>
+        <div className="win__title">
+          <div className="win__icon-box"><Sprite name={icon} px={2} animate={false} /></div>
+          <span>{title}</span>
+        </div>
         <div className="win__btns">
-          <button className="win__btn" title={t('win.minimize')} aria-label={t('win.minimize')} onClick={() => minimize(win.id)}><Sprite name="btn_min" px={3} /></button>
-          <button className="win__btn" title={t('win.maximize')} aria-label={t('win.maximize')} onClick={() => toggleMaximize(win.id)}><Sprite name="btn_max" px={3} /></button>
-          <button className="win__btn" title={t('win.close')} aria-label={t('win.close')} onClick={() => close(win.id)}><Sprite name="btn_close" px={3} /></button>
+          <button className="win__btn win__btn--min" title={t('win.minimize')} aria-label={t('win.minimize')} onClick={() => minimize(win.id)}><Sprite name="btn_min" px={2} /></button>
+          <button className="win__btn win__btn--max" title={t('win.maximize')} aria-label={t('win.maximize')} onClick={() => toggleMaximize(win.id)}><Sprite name="btn_max" px={2} /></button>
+          <button className="win__btn win__btn--close" title={t('win.close')} aria-label={t('win.close')} onClick={() => close(win.id)}><Sprite name="btn_close" px={2} /></button>
         </div>
       </div>
       <div className="win__body">{children}</div>

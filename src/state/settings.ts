@@ -1,7 +1,7 @@
 import { create } from 'zustand';
 import type { Lang } from '../i18n/strings';
 
-export const THEMES = ['synthwave', 'phosphor', 'aconite', 'aquarium', 'violet'] as const;
+export const THEMES = ['pastel95', 'synthwave', 'phosphor', 'aconite', 'aquarium', 'violet'] as const;
 export type ThemeId = (typeof THEMES)[number];
 
 export const BACKGROUND_PRESETS = ['berlin-night', 'aquarium'] as const;
@@ -30,7 +30,7 @@ interface SettingsActions {
 }
 
 export const DEFAULT_SETTINGS: SettingsState = {
-  theme: 'synthwave',
+  theme: 'pastel95',
   lang: 'vi',
   background: { kind: 'preset', ref: 'berlin-night' },
   dim: 0,

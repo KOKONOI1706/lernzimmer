@@ -37,17 +37,17 @@ export const APPS: AppDef[] = [
     if (b.toolbar) b.setTool('select');
     b.set({ toolbar: !b.toolbar });
   } },
-  { id: 'cards', title: 'app.cards', icon: 'book', size: { w: 600, h: 640 }, singleton: true, desktop: true, render: () => <CardsApp /> },
+  { id: 'cards', title: 'app.cards', icon: 'folder_cute', size: { w: 600, h: 640 }, singleton: true, desktop: true, render: () => <CardsApp /> },
   { id: 'arcade', title: 'app.arcade', icon: 'coin', size: { w: 620, h: 640 }, singleton: true, desktop: true, render: () => <ArcadeApp /> },
-  { id: 'radio', title: 'app.radio', icon: 'music_note', size: { w: 520, h: 560 }, singleton: true, desktop: true, render: () => <RadioApp /> },
+  { id: 'radio', title: 'app.radio', icon: 'cassette', size: { w: 520, h: 560 }, singleton: true, desktop: true, render: () => <RadioApp /> },
   { id: 'ambience', title: 'app.ambience', icon: 'fire', size: { w: 480, h: 600 }, singleton: true, desktop: true, render: () => <AmbienceApp /> },
   { id: 'focus', title: 'app.focus', icon: 'tomato', size: { w: 400, h: 470 }, singleton: true, desktop: true, render: () => <FocusApp /> },
   { id: 'clock', title: 'app.clock', icon: 'clock', size: { w: 460, h: 560 }, singleton: true, desktop: true, render: () => <ClockApp /> },
-  { id: 'word', title: 'app.word', icon: 'flag_de', size: { w: 440, h: 460 }, singleton: true, desktop: true, render: () => <WordApp /> },
+  { id: 'word', title: 'app.word', icon: 'globe', size: { w: 440, h: 460 }, singleton: true, desktop: true, render: () => <WordApp /> },
   { id: 'calendar', title: 'app.calendar', icon: 'calendar', size: { w: 720, h: 700 }, singleton: true, desktop: true, render: () => <CalendarApp /> },
-  { id: 'todo', title: 'app.todo', icon: 'checklist', size: { w: 400, h: 440 }, singleton: true, desktop: true, render: () => <TodoApp /> },
+  { id: 'todo', title: 'app.todo', icon: 'notebook', size: { w: 400, h: 440 }, singleton: true, desktop: true, render: () => <TodoApp /> },
   { id: 'brezel', title: 'app.brezel', icon: 'dachshund', size: { w: 640, h: 700 }, singleton: true, desktop: true, render: () => <BrezelApp /> },
-  { id: 'settings', title: 'app.settings', icon: 'cursor', size: { w: 520, h: 520 }, singleton: true, desktop: true, render: () => <SettingsApp /> },
+  { id: 'settings', title: 'app.settings', icon: 'pc_cute', size: { w: 520, h: 520 }, singleton: true, desktop: true, render: () => <SettingsApp /> },
   { id: 'welcome', title: 'app.welcome', icon: 'heart', size: { w: 560, h: 470 }, singleton: true, render: ({ winId }) => <WelcomeApp winId={winId} /> },
 ];
 
