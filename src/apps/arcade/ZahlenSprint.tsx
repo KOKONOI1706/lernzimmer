@@ -7,6 +7,7 @@ import { audio } from '../../audio/engine';
 import { Sprite } from '../../ui/Sprite';
 import { fmt, useT, type StringKey } from '../../i18n';
 import { GameOver } from './GameOver';
+import { emit } from '../../gamify/events';
 
 const say = (level: ZahlenLevel, n: number) => ('year' in level && level.year ? germanYear(n) : numberToGerman(n));
 const gameId = (level: ZahlenLevel) => `zahlen-${level.id}` as GameId;
@@ -84,7 +85,7 @@ export function ZahlenSprint({ onExit }: { onExit: () => void }) {
   }
   if (level) {
     return <Round key={round} level={level} onExit={() => setLevel(undefined)}
-      onEnd={(score) => setResult({ score, best: useScores.getState().record(gameId(level), score) })} />;
+      onEnd={(score) => { setResult({ score, best: useScores.getState().record(gameId(level), score) }); emit({ type: 'gameEnd', game: 'zahlen', score: score * 10 }); }} />;
   }
   return (
     <div className="game zahlen">

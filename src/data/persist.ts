@@ -10,6 +10,7 @@ import { useRadio } from '../media/radio';
 import { migrateTodos, useCalendar, type LegacyTodo } from '../calendar/store';
 import type { CalEntry } from '../calendar/types';
 import { useScores } from '../games/scores';
+import { pickProfile, useProfile, type Profile } from '../gamify/store';
 
 /** Small stores saved as one kv row each. `pick` = what to save, `load` = how to restore. */
 const SIMPLE_STORES = [
@@ -19,6 +20,8 @@ const SIMPLE_STORES = [
     load: (v: unknown) => useTimer.getState().hydrate(v as Partial<TimerState>) },
   { key: 'radio', store: useRadio, pick: () => ({ tracks: useRadio.getState().tracks, current: useRadio.getState().current }),
     load: (v: unknown) => useRadio.getState().hydrate(v as { tracks: [] }) },
+  { key: 'profile', store: useProfile, pick: () => pickProfile(useProfile.getState()),
+    load: (v: unknown) => useProfile.getState().hydrate(v as Partial<Profile>) },
   { key: 'arcade', store: useScores, pick: () => ({ best: useScores.getState().best, plays: useScores.getState().plays }),
     load: (v: unknown) => useScores.getState().hydrate(v as { best: Record<string, number>; plays: Record<string, number> }) },
   // Google events themselves are never stored: they're re-fetched after connecting

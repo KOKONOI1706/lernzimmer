@@ -14,6 +14,7 @@ import { TodoApp } from '../apps/TodoApp';
 import { CardsApp } from '../apps/cards/CardsApp';
 import { CalendarApp } from '../apps/CalendarApp';
 import { ArcadeApp } from '../apps/arcade/ArcadeApp';
+import { BrezelApp } from '../apps/BrezelApp';
 
 export interface AppDef {
   id: string;
@@ -45,6 +46,7 @@ export const APPS: AppDef[] = [
   { id: 'word', title: 'app.word', icon: 'flag_de', size: { w: 440, h: 460 }, singleton: true, desktop: true, render: () => <WordApp /> },
   { id: 'calendar', title: 'app.calendar', icon: 'calendar', size: { w: 720, h: 700 }, singleton: true, desktop: true, render: () => <CalendarApp /> },
   { id: 'todo', title: 'app.todo', icon: 'checklist', size: { w: 400, h: 440 }, singleton: true, desktop: true, render: () => <TodoApp /> },
+  { id: 'brezel', title: 'app.brezel', icon: 'dachshund', size: { w: 640, h: 700 }, singleton: true, desktop: true, render: () => <BrezelApp /> },
   { id: 'settings', title: 'app.settings', icon: 'cursor', size: { w: 520, h: 520 }, singleton: true, desktop: true, render: () => <SettingsApp /> },
   { id: 'welcome', title: 'app.welcome', icon: 'heart', size: { w: 560, h: 470 }, singleton: true, render: ({ winId }) => <WelcomeApp winId={winId} /> },
 ];
