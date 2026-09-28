@@ -9,6 +9,7 @@ import { useSettings } from '../../state/settings';
 import { fmt, useT } from '../../i18n';
 import { meaning } from '../cards/CardFace';
 import { GameOver } from './GameOver';
+import { emit } from '../../gamify/events';
 
 export const PAIRS = 6;
 export const memoryCards = (cards: Card[]) => cards.filter((c) => c.vi || c.en);
@@ -47,6 +48,8 @@ export function MemoryGame({ onExit }: { onExit: () => void }) {
       if (memoryDone(state)) {
         const secs = Math.round((Date.now() - startedAt) / 1000);
         setResult({ secs, best: useScores.getState().record('memory', state.moves, true) });
+        // fewer moves = better; perfect (6 moves) ≈ 160 points
+        emit({ type: 'gameEnd', game: 'memory', score: Math.max(20, 220 - state.moves * 10) });
       }
     } else if (r === 'miss') {
       audio.chime('no');

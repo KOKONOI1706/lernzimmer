@@ -1,7 +1,7 @@
 import { create } from 'zustand';
 import type { Lang } from '../i18n/strings';
 
-export const THEMES = ['aconite', 'aquarium', 'violet'] as const;
+export const THEMES = ['synthwave', 'phosphor', 'aconite', 'aquarium', 'violet'] as const;
 export type ThemeId = (typeof THEMES)[number];
 
 export const BACKGROUND_PRESETS = ['berlin-night', 'aquarium'] as const;
@@ -19,6 +19,10 @@ export interface SettingsState {
   /** CSS px per art pixel */
   px: 2 | 3 | 4;
   seenWelcome: boolean;
+  /** Retro CRT scanline and phosphor bloom overlay */
+  crt: boolean;
+  /** 3D animated retro wireframe grid on splash */
+  wireframe: boolean;
 }
 
 interface SettingsActions {
@@ -26,12 +30,14 @@ interface SettingsActions {
 }
 
 export const DEFAULT_SETTINGS: SettingsState = {
-  theme: 'aconite',
+  theme: 'synthwave',
   lang: 'vi',
   background: { kind: 'preset', ref: 'berlin-night' },
   dim: 0,
   px: 3,
   seenWelcome: false,
+  crt: true,
+  wireframe: true,
 };
 
 export const useSettings = create<SettingsState & SettingsActions>()((set) => ({
@@ -40,5 +46,5 @@ export const useSettings = create<SettingsState & SettingsActions>()((set) => ({
 }));
 
 /** Only the serialisable part, for persistence. */
-export const pickSettings = ({ theme, lang, background, dim, px, seenWelcome }: SettingsState): SettingsState =>
-  ({ theme, lang, background, dim, px, seenWelcome });
+export const pickSettings = ({ theme, lang, background, dim, px, seenWelcome, crt, wireframe }: SettingsState): SettingsState =>
+  ({ theme, lang, background, dim, px, seenWelcome, crt, wireframe });

@@ -8,6 +8,8 @@ import { useT } from '../i18n';
 
 /** Colours used for the little theme preview swatches. */
 const SWATCH: Record<ThemeId, { bar: string; body: string }> = {
+  synthwave: { bar: '#ff3b8b', body: '#18092e' },
+  phosphor: { bar: '#2ecc71', body: '#07170a' },
   aconite: { bar: '#1f4fd1', body: '#f4efe6' },
   aquarium: { bar: '#3fd0ff', body: '#0a1a4a' },
   violet: { bar: '#8b5cf6', body: '#0d0b1e' },
@@ -86,6 +88,28 @@ export function SettingsApp() {
           {([2, 3, 4] as const).map((px) => (
             <button key={px} className="px-btn" aria-pressed={s.px === px} onClick={() => s.set({ px })}>{px}×</button>
           ))}
+        </div>
+      </fieldset>
+
+      <fieldset className="px-field">
+        <legend>RETRO FX</legend>
+        <div className="px-row" style={{ gap: 16 }}>
+          <label className="px-check">
+            <input
+              type="checkbox"
+              checked={s.crt}
+              onChange={(e) => s.set({ crt: e.target.checked })}
+            />
+            <span>📺 {t('settings.crt')}</span>
+          </label>
+          <label className="px-check">
+            <input
+              type="checkbox"
+              checked={s.wireframe}
+              onChange={(e) => s.set({ wireframe: e.target.checked })}
+            />
+            <span>📐 {t('settings.wireframe')}</span>
+          </label>
         </div>
       </fieldset>
     </div>

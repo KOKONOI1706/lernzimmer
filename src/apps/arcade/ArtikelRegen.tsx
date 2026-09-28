@@ -8,6 +8,7 @@ import { audio } from '../../audio/engine';
 import { Sprite } from '../../ui/Sprite';
 import { fmt, useT } from '../../i18n';
 import { GameOver } from './GameOver';
+import { emit } from '../../gamify/events';
 
 const GENDERS: Gender[] = ['der', 'die', 'das'];
 const KEYS: Record<string, Gender> = { '1': 'der', '2': 'die', '3': 'das', ArrowLeft: 'der', ArrowDown: 'die', ArrowRight: 'das' };
@@ -57,6 +58,7 @@ export function ArtikelRegen({ onExit }: { onExit: () => void }) {
     if (next.over) {
       setWord(undefined);
       setResult({ best: useScores.getState().record('artikel', next.score) });
+      emit({ type: 'gameEnd', game: 'artikel', score: next.score });
     } else {
       nextWord();
     }

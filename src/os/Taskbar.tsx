@@ -8,6 +8,10 @@ import { useT } from '../i18n';
 import { useToast } from '../ui/toast';
 import { mmss, phaseLength, timeLeft, useTimer } from '../focus/timer';
 import { activeLayers, startAudio, useMixer } from '../audio/mixer';
+import { useProfile } from '../gamify/store';
+import { levelInfo, liveStreak } from '../gamify/rules';
+import { isoDate } from '../calendar/dates';
+import { THEMES, useSettings } from '../state/settings';
 
 export const formatDuration = (ms: number) => {
   const s = Math.floor(ms / 1000);
@@ -22,6 +26,9 @@ function useNow(intervalMs = 1000) {
 
 export function Taskbar({ sessionStart, onEnd }: { sessionStart: number; onEnd: () => void }) {
   const t = useT();
+  const theme = useSettings((s) => s.theme);
+  const crt = useSettings((s) => s.crt);
+  const setSettings = useSettings((s) => s.set);
   const windows = useWindows((s) => s.windows);
   const taskbarClick = useWindows((s) => s.taskbarClick);
   const [menu, setMenu] = useState(false);
@@ -32,6 +39,18 @@ export function Taskbar({ sessionStart, onEnd }: { sessionStart: number; onEnd: 
   const timerActive = timer.running || timer.remaining !== phaseLength(timer);
   const sounds = useMixer((s) => activeLayers(s).length);
   const muted = useMixer((s) => s.muted);
+  const xp = useProfile((s) => s.xp);
+  const coins = useProfile((s) => s.coins);
+  const streak = useProfile((s) => liveStreak(s.streak, isoDate(new Date())));
+
+  const cycleTheme = () => {
+    const idx = THEMES.indexOf(theme);
+    setSettings({ theme: THEMES[(idx + 1) % THEMES.length] });
+  };
+
+  const toggleCrt = () => {
+    setSettings({ crt: !crt });
+  };
 
   const save = async () => {
     await saveNow();
@@ -57,11 +76,39 @@ export function Taskbar({ sessionStart, onEnd }: { sessionStart: number; onEnd: 
           })}
         </div>
         {toast && <span className="taskbar__toast" role="status">{toast}</span>}
+        <button className="taskbar__chip taskbar__profile" title={t('app.brezel')} onClick={() => openApp('brezel')}>
+          <b>{levelInfo(xp).name}</b>
+          <span><Sprite name="fire" px={1.5} />{streak}</span>
+          <span><Sprite name="coin" px={1.5} />{coins}</span>
+        </button>
         <div className="taskbar__tray">
+          <button
+            className={`taskbar__chip ${crt ? 'is-active' : ''}`}
+            title={t('tray.crt')}
+            aria-pressed={crt}
+            onClick={toggleCrt}
+          >
+            <span>📺</span>
+            <span className="taskbar__chip-text">CRT</span>
+          </button>
+          <button
+            className="taskbar__chip"
+            title={t('tray.theme')}
+            onClick={cycleTheme}
+          >
+            <span>🎨</span>
+            <span className="taskbar__chip-text">{t(`theme.${theme}`)}</span>
+          </button>
           {sounds > 0 && (
             <button className="taskbar__chip" title={t('amb.mute')} aria-pressed={muted}
               onClick={() => { void startAudio(); useMixer.getState().toggleMute(); }}>
-              <Sprite name="speaker" px={2} />{muted ? '✕' : sounds}
+              <Sprite name="speaker" px={2} />
+              {!muted && (
+                <span className="taskbar__eq" aria-hidden="true">
+                  <i /><i /><i />
+                </span>
+              )}
+              {muted ? '✕' : sounds}
             </button>
           )}
           {timerActive && (
@@ -72,7 +119,7 @@ export function Taskbar({ sessionStart, onEnd }: { sessionStart: number; onEnd: 
           <span title={t('task.session')} style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
             <Sprite name="clock" px={2} animate={false} />{formatDuration(now - sessionStart)}
           </span>
-          <span>{new Date(now).toLocaleTimeString('de-DE', { hour: '2-digit', minute: '2-digit' })}</span>
+          <span className="taskbar__clock">{new Date(now).toLocaleTimeString('de-DE', { hour: '2-digit', minute: '2-digit' })}</span>
         </div>
       </nav>
     </>

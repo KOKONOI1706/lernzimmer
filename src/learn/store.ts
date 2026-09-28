@@ -4,6 +4,7 @@ import { db } from '../data/db';
 import { isNew, newSrs, Rating, schedule, State, type Card, type Deck, type Grade, type ReviewLog } from './cards';
 import type { CardFields } from './csv';
 import { STARTER_DECKS, STARTER_VERSION } from './starter';
+import { emit } from '../gamify/events';
 
 /** Deck that collects cards made from board notes. */
 export const BOARD_DECK = 'board';
@@ -104,6 +105,7 @@ export const useLearn = create<LearnState & LearnActions>()((set, get) => ({
     const cards = fields.map((f, i) => makeCard(deckId, f, start + i, now));
     await db.cards.bulkPut(cards);
     set((s) => ({ cards: [...s.cards, ...cards] }));
+    if (cards.length) emit({ type: 'cardCreated', count: cards.length });
     return cards;
   },
 
@@ -135,6 +137,7 @@ export const useLearn = create<LearnState & LearnActions>()((set, get) => ({
     const log: ReviewLog = { id: nanoid(12), cardId, deckId: cur.deckId, at: now, rating: correct ? Rating.Good : Rating.Again, wasNew: false, ms: Math.round(ms), source, practice: true };
     await db.logs.put(log);
     set((s) => ({ today: [...s.today, log] }));
+    emit({ type: 'review', correct, wasNew: false, practice: true });
     return 'practice';
   },
 
@@ -152,6 +155,7 @@ export const useLearn = create<LearnState & LearnActions>()((set, get) => ({
       cards: s.cards.map((c) => (c.id === cardId ? next : c)),
       today: log.at >= startOfDay() ? [...s.today, log] : s.today,
     }));
+    emit({ type: 'review', correct: rating >= Rating.Good, wasNew: log.wasNew, practice: false });
     return next;
   },
 }));

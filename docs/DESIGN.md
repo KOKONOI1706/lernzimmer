@@ -3,7 +3,7 @@
 > A cozy pixel study room for learning German. You decorate your own room: a whiteboard, stickers,
 > a clock, music, rain on the window. Then you study inside it with flashcards, mini games and focus timers.
 
-Status: **M5 (arcade) done.** This document is the spec that later milestones build against.
+Status: **M6 (gamification) done.** This document is the spec that later milestones build against.
 
 ---
 
@@ -349,7 +349,8 @@ interface GameAPI { sprites: Atlas; sfx(name: string): void; speak(de: string): 
 | | *M4 shipped:* decks + card editor, FSRS scheduling (ts-fsrs) with daily new-card limits and in-session relearning, two review modes (pick der/die/das → reveal, or type the German with umlaut bar; article and spelling graded separately with a suggested rating), TTS, keyboard-only review, two built-in A1 decks (194 nouns in 11 topics, 46 verbs & phrases), note → flashcard from the board, CSV/TSV import & export incl. Anki plain-text, due badge on the desktop icon. *Deferred:* images/audio on cards, cloze cards, statistics screen, .apkg import. | |
 | **M5 Arcade** ✅ | Game engine + Artikel-Regen, Memory, Zahlen-Sprint, Wie spät ist es?; then Kasus-Dungeon, Satzbau-Tetris, Verb-Schmiede | games write to ReviewLog |
 | | *M5 shipped:* Spielhalle (violet arcade palette) with Artikel-Regen (falling nouns → der/die/das, 3 lives, levels, streak bonus), Memory (word ↔ meaning, 6 pairs), Zahlen-Sprint (TTS numbers → digits, 60 s, 4 levels incl. years "neunzehnhundertachtzig"), and the "Wie spät ist es?" clock quiz; persistent high scores. Game answers go through `learn.practice()`: real FSRS reviews only for due/learning cards, otherwise logged as practice. *Deferred:* Kasus-Dungeon, Satzbau-Tetris, Verb-Schmiede, Trennbar!, Komposita-Lego, Galgenmännchen, Diktat, boss fight (M6). | |
-| **M6 Gamify** | XP, coins, streak, quests, Brezel pet, shop, achievements, boss fight | the retention loop is closed |
+| **M6 Gamify** ✅ | XP, coins, streak, quests, Brezel pet, shop, achievements, boss fight | the retention loop is closed |
+| | *M6 shipped:* event bus (`gamify/events.ts`) fed by reviews, practice, focus sessions, games, new cards and board cards; XP with CEFR-named levels (A1.1 → C1.5), coins, streak with up to 3 freezes, Brezel the pet (food decays ~30/day, mood + German speech line, never dies, hats), 3 seeded daily quests with rewards, 10 badges, shop (freeze, beret, nón lá, crown), weekly boss "Der Grammatik-Geist" built from this week's mistakes (one reward per week), level/streak/coins chip in the taskbar, celebration toasts. *Deferred:* furniture/background shop items, pet reacting on the board, more games (Kasus-Dungeon, Satzbau-Tetris, Verb-Schmiede…). | |
 | **M7 Cloud & PWA** | PWA install, offline cache, optional Supabase sync, room sharing link, deploy | installable, works across devices |
 | **M8 Extras** | Shadowing, sentence mining from YouTube, journal with optional AI feedback, immersion mode, multiplayer study room (see each other's avatars studying) | — |
 

@@ -2,6 +2,7 @@ import { parseNote } from './cards';
 import { BOARD_DECK, useLearn } from './store';
 import { useBoard } from '../board/store';
 import type { NoteItem } from '../board/types';
+import { emit } from '../gamify/events';
 
 /**
  * Save a sticky note as a flashcard in the "board" deck (created on first use).
@@ -25,5 +26,6 @@ export async function noteToCard(note: NoteItem, deckName: string): Promise<{ wo
   }
   const [card] = await useLearn.getState().addCards(BOARD_DECK, [fields]);
   useBoard.getState().update(note.id, { cardId: card.id });
+  emit({ type: 'boardCard' });
   return { word, updated: false };
 }
