@@ -62,15 +62,18 @@ export function Taskbar({ sessionStart, onEnd }: { sessionStart: number; onEnd: 
       {menu && <StartMenu onClose={() => setMenu(false)} onSave={save} onEnd={onEnd} />}
       <nav className="taskbar" aria-label="Taskbar">
         <button className="px-btn taskbar__start" aria-pressed={menu} aria-haspopup="menu" onClick={() => setMenu(!menu)}>
-          <Sprite name="heart" px={2} />START
+          <Sprite name="retro_start" px={2} />
+          <span>START</span>
         </button>
         <div className="taskbar__wins">
           {windows.map((w) => {
             const app = appById(w.appId);
             if (!app?.render) return null;
+            const active = !w.minimized && focused === w.id;
             return (
-              <button key={w.id} className="px-btn taskbar__win" aria-pressed={!w.minimized && focused === w.id} onClick={() => taskbarClick(w.id)}>
-                <Sprite name={app.icon} px={2} animate={false} />{t(app.title)}
+              <button key={w.id} className={`px-btn taskbar__win ${active ? 'is-active' : ''}`} aria-pressed={active} onClick={() => taskbarClick(w.id)}>
+                <div className="taskbar__win-icon"><Sprite name={app.icon} px={2} animate={false} /></div>
+                <span className="taskbar__win-title">{t(app.title)}</span>
               </button>
             );
           })}

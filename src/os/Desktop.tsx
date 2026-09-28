@@ -48,10 +48,12 @@ export function Desktop({ sessionStart, onEnd }: { sessionStart: number; onEnd: 
               onClick={(e) => (e.nativeEvent as PointerEvent).pointerType === 'touch' ? openApp(a.id) : setSelected(a.id)}
               onDoubleClick={() => openApp(a.id)}
               onKeyDown={(e) => e.key === 'Enter' && openApp(a.id)}>
-              <Sprite name={a.icon} animate={false} />
-              {a.id === 'cards' && waiting > 0 && <b className="icon__badge" aria-label={`${waiting}`}>{waiting > 99 ? '99+' : waiting}</b>}
-              {(a.id === 'calendar' || a.id === 'todo') && openToday > 0 && <b className="icon__badge icon__badge--cal" aria-label={`${openToday}`}>{openToday}</b>}
-              <span>{t(a.title)}</span>
+              <div className="icon__graphic">
+                <Sprite name={a.icon} animate={false} />
+                {a.id === 'cards' && waiting > 0 && <b className="icon__badge" aria-label={`${waiting}`}>{waiting > 99 ? '99+' : waiting}</b>}
+                {(a.id === 'calendar' || a.id === 'todo') && openToday > 0 && <b className="icon__badge icon__badge--cal" aria-label={`${openToday}`}>{openToday}</b>}
+              </div>
+              <span className="icon__label">{t(a.title)}</span>
             </button>
           ))}
         </div>
